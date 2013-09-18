@@ -29,7 +29,7 @@ cp credentials.yml.sample credentials.yml
 
 Then fill in the file with your Google username, password, and [API token](https://cloud.google.com/console).
 
-Note: If you have Google's 2-step verification endabled, you will need to
+Note: If you have Google's 2-step verification enabled, you will need to
 [generate an application-specific password](https://accounts.google.com/b/0/IssuedAuthSubTokens).
 
 ### Run
