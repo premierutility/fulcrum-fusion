@@ -48,3 +48,18 @@ using this as the URL.
 Use Fulcrum to create a record in your app. Assuming everything is hooked up
 properly, you'll see the record in a Fusion Table soon.
 
+### Limitations
+
+Here's how things currently work:
+
+- Creates a new table called 'Fulcrum_Fusion' in Fusion Tables, if it doesn't
+  already exist.
+- All records received over webhooks (for all apps) will be shown in this one table.
+- Add a new record to see it created in the Fusion Table.
+- Updating/Deleting this record will affect that record in the Fusion Table.
+- Updating/Deleting a record that doesn't already exist in the Fusion Table
+  likely blows up.
+- This only works as advertised for one-off webhooks. Webhooks coming in batches will not work correctly.
+- Handling the record data is done on another thread to keep the incoming webhook
+  request from timing out.
+
