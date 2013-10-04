@@ -1,31 +1,36 @@
+require './form_creator'
+require './form_updater'
+require './form_deleter'
+
 class FormProcessor
-  def process(action, event_data)
-    id = event_data["data"]["id"].gsub("-", "")
+  def initialize(action_name, event_data)
+    @action_name = action_name
+    @event_data = event_data
+  end
 
-    case action
+  def process
+    action.process
+  end
+
+private
+  def action
+    case @action_name
     when 'create'
-      name       = event_data["data"]["name"].gsub(" ", "")
-      table_name = "FulcrumApp_#{name}_WithId_#{id}"
+      FormCreator.new(form_id, @event_data)
 
-      table = FulcrumTable.new.create_table(table_name)
-
-      if table
-        201 # Created
-      else
-        202 # Accepted
-      end
     when 'update'
-      # Not sure what we can update with this library.
-      202 # Accepted
-    when 'delete'
-      table = FulcrumTable.new.drop_table(id)
+      FormUpdater.new
 
-      if table
-        204 # No Content
-      else
-        202 # Accepted
-      end
+    when 'delete'
+      FormDeleter.new(form_id)
+
+    else
+      202 # This isnt an event we care about
     end
+  end
+
+  def form_id
+    @event_data["data"]["id"].gsub("-", "")
   end
 end
 
