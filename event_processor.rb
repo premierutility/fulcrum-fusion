@@ -14,7 +14,11 @@ class EventProcessor
     # This isn't an event we want to process.
     return 202 unless event
 
-    event.process
+    status = event.process
+
+    sleep 2 # To prevent rate-limiting
+
+    status
   end
 
 private
