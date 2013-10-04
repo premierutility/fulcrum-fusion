@@ -18,6 +18,7 @@
     end
 
     def create_table(name)
+      return unless table_doesnt_exist(name)
       self.table = @ft.create_table(name.to_s, COLS)
     end
 
@@ -31,6 +32,15 @@
     end
 
     private
+      def table_doesnt_exist(text)
+        retrieve_table(text) == nil
+      end
+
+      def retrieve_table(text)
+        tables = @ft.show_tables
+        tables.select{|t| t.name.match(Regexp.new(text))}.first
+      end
+
       COLS = [
         { name: "status",              type: "string"   },
         { name: "version",             type: "number"   },

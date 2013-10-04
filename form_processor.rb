@@ -7,13 +7,18 @@ class FormProcessor
       name       = event_data["data"]["name"].gsub(" ", "")
       table_name = "FulcrumApp_#{name}_WithId_#{id}"
 
-      FulcrumTable.new.create_table(table_name)
+      table = FulcrumTable.new.create_table(table_name)
+
+      if table
+        201 # Created
+      else
+        202 # Accepted
+      end
     when 'update'
       # Not sure what we can update with this library.
     when 'delete'
       FulcrumTable.new.drop_table(id)
     end
   end
-
-  private
 end
+
