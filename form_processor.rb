@@ -16,6 +16,7 @@ class FormProcessor
       end
     when 'update'
       # Not sure what we can update with this library.
+      202 # Accepted
     when 'delete'
       FulcrumTable.new.drop_table(id)
     end
