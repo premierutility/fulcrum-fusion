@@ -27,7 +27,16 @@
     end
 
     def drop_table(fulcrum_id)
-      @ft.drop(Regexp.new(fulcrum_id))
+      table = retrieve_table(fulcrum_id)
+      return unless table
+
+      drop_count = @ft.drop(Regexp.new(fulcrum_id))
+
+      if drop_count == 1
+        table
+      else
+        nil
+      end
     end
 
     private
