@@ -20,14 +20,14 @@ private
     event_name = event_data["type"]
     resource, action = *(event_name.split('.'))
     puts "Processing event: #{event_name}"
-    puts event_data
-
     case resource
     when 'form'
       process_form(action, event_data)
     when 'record'
       process_record(action, event_data)
     end
+    # It seems like I need this puts here for the page to return properly.
+    puts "Success!"
   end
 
   class FulcrumTable
@@ -75,9 +75,7 @@ private
         { name: "vertical_accuracy",   type: "string"   }
       ]
 
-      puts "Making the call to create the table..."
       self.table = @ft.create_table(name.to_s, cols)
-      puts "Table should have been created"
     end
 
     def existing_table(fulcrum_id)
@@ -91,7 +89,6 @@ private
   end
 
   def process_form(action, event_data)
-    puts "Processing form #{action}"
     id = event_data["data"]["id"].gsub("-", "")
 
     case action
@@ -103,7 +100,7 @@ private
     when 'update'
       # Not sure what we can update with this library.
     when 'delete'
-      # FulcrumTable.new.drop_table(id)
+      FulcrumTable.new.drop_table(id)
     end
   end
 
@@ -119,24 +116,18 @@ private
 
     case action
     when 'create'
-      puts "Creating record..."
       f.insert([record_row])
-      puts "Should have created record"
     when 'update'
-      puts "Updating record..."
       row = f.select("ROWID", "WHERE id='#{record_row["id"]}'").first
       row_id = row ? row[:rowid] : nil
       if row_id
         f.update(row_id, record_row)
-        puts "Should have updated record"
       end
     when 'delete'
-      puts "Deleting record..."
       row = f.select("ROWID", "WHERE id='#{record_row["id"]}'").first
       row_id = row ? row[:rowid] : nil
       if row_id
         f.delete(row_id)
-        puts "Should have deleted record"
       end
     end
   rescue => e
