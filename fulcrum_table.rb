@@ -23,8 +23,7 @@
     end
 
     def existing_table(fulcrum_id)
-      tables = @ft.show_tables
-      self.table = tables.select{|t| t.name.match(Regexp.new(fulcrum_id))}.first
+      self.table = retrieve_table(fulcrum_id)
     end
 
     def drop_table(fulcrum_id)
