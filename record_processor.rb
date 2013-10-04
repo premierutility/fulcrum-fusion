@@ -4,23 +4,26 @@ class RecordProcessor
     f = FulcrumTable.new.existing_table(id)
     record_row = convert_record_data(event_data["data"])
 
-    return unless f
+    return 202 unless f
 
     case action
     when 'create'
       f.insert([record_row])
+      201
     when 'update'
       row = f.select("ROWID", "WHERE id='#{record_row["id"]}'").first
       row_id = row ? row[:rowid] : nil
       if row_id
         f.update(row_id, record_row)
       end
+      200
     when 'delete'
       row = f.select("ROWID", "WHERE id='#{record_row["id"]}'").first
       row_id = row ? row[:rowid] : nil
       if row_id
         f.delete(row_id)
       end
+      204
     end
   rescue => e
     puts "ERROR: #{e.inspect}, #{e.backtrace}"
