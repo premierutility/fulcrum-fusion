@@ -3,17 +3,36 @@ require './form_processor'
 require './record_processor'
 
 class EventProcessor
-  def process(event_data)
-    event_name = event_data["type"]
-    resource, action = *(event_name.split('.'))
-    puts "Processing event: #{event_name}"
-    case resource
+  def initialize(event_data)
+    @event_data = event_data
+    @resource, @action = parse_event
+  end
+
+  def process
+    puts "Processing event: #{event_type}"
+
+    # This isn't an event we want to process.
+    return 202 unless event
+
+    event.process(@action, @event_data)
+  end
+
+private
+  def event
+    case @resource
     when 'form'
-      FormProcessor.new.process(action, event_data)
+      FormProcessor.new
     when 'record'
-      RecordProcessor.new.process(action, event_data)
+      RecordProcessor.new
     end
   end
 
+  def event_type
+    @event_data["type"]
+  end
+
+  def parse_event
+    event_type.split('.')
+  end
 end
 

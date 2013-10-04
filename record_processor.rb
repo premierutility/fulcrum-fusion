@@ -4,6 +4,7 @@ class RecordProcessor
     f = FulcrumTable.new.existing_table(id)
     record_row = convert_record_data(event_data["data"])
 
+    # The record is for a table that doesn't exist, so don't process it.
     return 202 unless f
 
     case action

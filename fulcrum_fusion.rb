@@ -13,6 +13,6 @@ end
 post '/' do
   event_data = JSON.parse(request.body.first)
 
-  EventProcessor.new.process(event_data)
+  EventProcessor.new(event_data).process
 end
 
