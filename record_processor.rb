@@ -1,13 +1,18 @@
 class RecordProcessor
-  def process(action, event_data)
-    id = event_data["data"]["form_id"].gsub("-", "")
+  def initialize(action_name, event_data)
+    @action_name = action_name
+    @event_data  = event_data
+  end
+
+  def process
+    id = @event_data["data"]["form_id"].gsub("-", "")
     f = FulcrumTable.new.existing_table(id)
-    record_row = convert_record_data(event_data["data"])
+    record_row = convert_record_data(@event_data["data"])
 
     # The record is for a table that doesn't exist, so don't process it.
     return 202 unless f
 
-    case action
+    case @action_name
     when 'create'
       f.insert([record_row])
       201
