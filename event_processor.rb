@@ -1,4 +1,5 @@
 require './fulcrum_table'
+require './form_processor'
 
 class EventProcessor
   def process(event_data)
