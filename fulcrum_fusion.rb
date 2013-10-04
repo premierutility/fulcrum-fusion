@@ -17,11 +17,17 @@ end
 
 private
   def process_event(event_data)
-    Thread.new {
-      event_name = event_data["event"]
-      resource, action = *(event_name.split('.'))
-      process_record(action, event_data) if resource == 'record'
-    }.run
+    event_name = event_data["type"]
+    resource, action = *(event_name.split('.'))
+    puts "Processing event: #{event_name}"
+    puts event_data
+
+    case resource
+    when 'form'
+      process_form(action, event_data)
+    when 'record'
+      process_record(action, event_data)
+    end
   end
 
   class FulcrumTable
@@ -38,18 +44,19 @@ private
       config = YAML::load_file(File.join(File.dirname(__FILE__), 'credentials.yml'))
 
       # Configure fusion tables
-      ft = GData::Client::FusionTables.new
-      ft.clientlogin config["google_username"], config["google_password"]
-      ft.set_api_key config["google_api_key"]
+      @ft = GData::Client::FusionTables.new
+      @ft.clientlogin config["google_username"], config["google_password"]
+      @ft.set_api_key config["google_api_key"]
+    end
 
-      table_name = "Fulcrum_Fusion"
+    def create_table(name)
       cols = [
         { name: "status",              type: "string"   },
         { name: "version",             type: "number"   },
         { name: "id",                  type: "string"   },
         { name: "form_id",             type: "string"   },
         { name: "project_id",          type: "string"   },
-        { name: "created_at",          type: "string"   }, #TODO: Change to datetime
+        { name: "created_at",          type: "string"   },
         { name: "updated_at",          type: "string"   },
         { name: "client_created_at",   type: "string"   },
         { name: "client_updated_at",   type: "string"   },
@@ -68,30 +75,69 @@ private
         { name: "vertical_accuracy",   type: "string"   }
       ]
 
-      tables = ft.show_tables
-      fusion_table = tables.select{|t| t.name == table_name}.first
-      if !fusion_table
-        self.table = ft.create_table(table_name, cols) if !fusion_table
-      else
-        self.table = fusion_table
-      end
+      puts "Making the call to create the table..."
+      self.table = @ft.create_table(name.to_s, cols)
+      puts "Table should have been created"
+    end
+
+    def existing_table(fulcrum_id)
+      tables = @ft.show_tables
+      self.table = tables.select{|t| t.name.match(Regexp.new(fulcrum_id))}.first
+    end
+
+    def drop_table(fulcrum_id)
+      @ft.drop(Regexp.new(fulcrum_id))
     end
   end
 
-  def process_record(action, event_data)
-    puts "Processing record #{action}"
-    f = FulcrumTable.new
-    record_row = convert_record_data(event_data["data"])
+  def process_form(action, event_data)
+    puts "Processing form #{action}"
+    id = event_data["data"]["id"].gsub("-", "")
 
     case action
     when 'create'
-      f.insert [record_row]
+      name       = event_data["data"]["name"].gsub(" ", "")
+      table_name = "FulcrumApp_#{name}_WithId_#{id}"
+
+      FulcrumTable.new.create_table(table_name)
     when 'update'
-      row_id = f.select("ROWID", "WHERE id='#{record_row["id"]}'").first[:rowid]
-      f.update row_id, record_row
+      # Not sure what we can update with this library.
     when 'delete'
-      row_id = f.select("ROWID", "WHERE id='#{record_row["id"]}'").first[:rowid]
-      f.delete row_id
+      # FulcrumTable.new.drop_table(id)
+    end
+  end
+
+  def convert_form_data(form)
+  end
+
+  def process_record(action, event_data)
+    id = event_data["data"]["form_id"].gsub("-", "")
+    f = FulcrumTable.new.existing_table(id)
+    record_row = convert_record_data(event_data["data"])
+
+    return unless f
+
+    case action
+    when 'create'
+      puts "Creating record..."
+      f.insert([record_row])
+      puts "Should have created record"
+    when 'update'
+      puts "Updating record..."
+      row = f.select("ROWID", "WHERE id='#{record_row["id"]}'").first
+      row_id = row ? row[:rowid] : nil
+      if row_id
+        f.update(row_id, record_row)
+        puts "Should have updated record"
+      end
+    when 'delete'
+      puts "Deleting record..."
+      row = f.select("ROWID", "WHERE id='#{record_row["id"]}'").first
+      row_id = row ? row[:rowid] : nil
+      if row_id
+        f.delete(row_id)
+        puts "Should have deleted record"
+      end
     end
   rescue => e
     puts "ERROR: #{e.inspect}, #{e.backtrace}"
@@ -103,3 +149,4 @@ private
     record['location'] = location
     record
   end
+
