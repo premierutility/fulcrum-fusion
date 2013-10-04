@@ -14,17 +14,23 @@ class EventProcessor
     # This isn't an event we want to process.
     return 202 unless event
 
-    event.process(@action, @event_data)
+    event.process
   end
 
 private
   def event
+    return @event if @event
+
     case @resource
     when 'form'
-      FormProcessor.new
+      klass = FormProcessor
     when 'record'
-      RecordProcessor.new
+      klass = RecordProcessor
+    else
+      return nil
     end
+
+    @event = klass.new(@action, @event_data)
   end
 
   def event_type
