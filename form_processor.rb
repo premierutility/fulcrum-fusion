@@ -18,7 +18,13 @@ class FormProcessor
       # Not sure what we can update with this library.
       202 # Accepted
     when 'delete'
-      FulcrumTable.new.drop_table(id)
+      table = FulcrumTable.new.drop_table(id)
+
+      if table
+        204 # No Content
+      else
+        202 # Accepted
+      end
     end
   end
 end
