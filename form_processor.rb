@@ -9,24 +9,30 @@ class FormProcessor
   end
 
   def process
+    return 202 unless action
+
     action.process
   end
 
 private
   def action
+    return @action if @action
+
     case @action_name
     when 'create'
-      FormCreator.new(form_id, @event_data)
+      instance = FormCreator.new(form_id, @event_data)
 
     when 'update'
-      FormUpdater.new
+      instance = FormUpdater.new
 
     when 'delete'
-      FormDeleter.new(form_id)
+      instance = FormDeleter.new(form_id)
 
     else
-      202 # This isnt an event we care about
+      return nil # This isnt an event we care about
     end
+
+    @action = instance
   end
 
   def form_id
