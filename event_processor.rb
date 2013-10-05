@@ -16,7 +16,7 @@ class EventProcessor
 
     status = event.process
 
-    sleep 2 # To prevent rate-limiting
+    sleep 2 if status == 201 || status == 204 # To prevent rate-limiting if sta
 
     status
   end
