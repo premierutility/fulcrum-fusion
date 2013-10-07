@@ -58,7 +58,7 @@ appropriate Fusion Table.
 ####Notes:
 
 - Each new from will be created as a new Fusion Table.
-- A table will be created called "FulcrumApp_<FormName>_WithId_<FormId>". The
+- A table will be created called `FulcrumApp_{FormName}_WithId_{FormId}`. The
   name is constricted by the library used to work with Fusion Tables.
 - All the column names in the application are columns from the API. There
   aren't any dynamic ones yet.
