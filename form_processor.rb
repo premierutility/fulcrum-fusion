@@ -11,7 +11,16 @@ class FormProcessor
   def process
     return 202 unless action
 
-    action.process
+    processed = false
+
+    until processed
+      begin
+        action.process
+      rescue StandardError
+      else
+        processed = true
+      end
+    end
   end
 
 private
