@@ -1,8 +1,7 @@
 require 'sinatra'
 require 'json'
 require 'yaml'
-require 'fusion_tables'
-require './event_processor'
+require_relative 'lib/event_processor'
 
 set :port, 3002 # Configure sinatra
 
