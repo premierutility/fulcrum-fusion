@@ -1,3 +1,4 @@
+require_relative 'fulcrum_table'
 require_relative 'record_processor/record_creator'
 require_relative 'record_processor/record_updater'
 require_relative 'record_processor/record_deleter'
