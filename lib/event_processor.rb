@@ -1,4 +1,4 @@
-require './form_processor'
+require_relative 'form_processor'
 require './record_processor'
 
 class EventProcessor
