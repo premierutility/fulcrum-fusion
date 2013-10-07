@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'json'
-require 'yaml'
 require_relative 'lib/event_processor'
 
 set :port, 3002 # Configure sinatra

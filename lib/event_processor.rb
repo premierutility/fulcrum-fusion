@@ -1,4 +1,3 @@
-require './fulcrum_table'
 require './form_processor'
 require './record_processor'
 
