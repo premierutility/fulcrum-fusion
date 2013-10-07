@@ -11,17 +11,7 @@ class FormProcessor
   def process
     return 202 unless action
 
-    processed = false
-
-    until processed
-      begin
-        action.process
-      rescue StandardError => e
-        puts "ERROR: #{e.message} : #{e.backtrace}"
-      else
-        processed = true
-      end
-    end
+    action.process
   end
 
 private

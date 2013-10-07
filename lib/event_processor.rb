@@ -13,9 +13,19 @@ class EventProcessor
     # This isn't an event we want to process.
     return 202 unless event
 
-    status = event.process
+    processed = false
 
-    sleep 2 if status == 201 || status == 204 # To prevent rate-limiting
+    until processed
+      begin
+        status = event.process
+        sleep 1 if status == 201 || status == 204 # To prevent rate-limiting
+      rescue StandardError => e
+        puts "ERROR: #{e.inspect} : #{e.message}\n\n#{e.backtrace}"
+        sleep 2
+      else
+        processed = true
+      end
+    end
 
     status
   end
