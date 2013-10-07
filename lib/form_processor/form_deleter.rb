@@ -1,4 +1,4 @@
-require './fulcrum_table'
+require_relative '../fulcrum_table'
 
 class FormDeleter
   def initialize(form_id)

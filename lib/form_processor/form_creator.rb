@@ -1,4 +1,4 @@
-require './fulcrum_table'
+require_relative '../fulcrum_table'
 
 class FormCreator
   def initialize(form_id, event_data)
