@@ -1,6 +1,6 @@
-require './record_creator'
-require './record_updater'
-require './record_deleter'
+require_relative 'record_processor/record_creator'
+require_relative 'record_processor/record_updater'
+require_relative 'record_processor/record_deleter'
 
 class RecordProcessor
   def initialize(action_name, event_data)
