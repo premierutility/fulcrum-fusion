@@ -1,4 +1,5 @@
 require 'yaml'
+require 'forwardable'
 
 class FulcrumTable
   extend Forwardable
