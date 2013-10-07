@@ -13,7 +13,8 @@ class FulcrumTable
 
   def initialize
     # Configure settings
-    config = YAML::load_file(File.join(File.dirname(__FILE__), 'credentials.yml'))
+    dir = File.join(File.dirname(__FILE__), "..")
+    config = YAML::load_file(File.join(dir, 'credentials.yml'))
 
     # Configure fusion tables
     @ft = GData::Client::FusionTables.new
