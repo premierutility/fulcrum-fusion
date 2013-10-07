@@ -1,5 +1,5 @@
 require_relative 'form_processor'
-require './record_processor'
+require_relative 'record_processor'
 
 class EventProcessor
   def initialize(event_data)
