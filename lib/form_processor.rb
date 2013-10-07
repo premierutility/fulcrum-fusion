@@ -1,6 +1,6 @@
-require './form_creator'
-require './form_updater'
-require './form_deleter'
+require_relative 'form_processor/form_creator'
+require_relative 'form_processor/form_updater'
+require_relative 'form_processor/form_deleter'
 
 class FormProcessor
   def initialize(action_name, event_data)
