@@ -16,7 +16,8 @@ class FormProcessor
     until processed
       begin
         action.process
-      rescue StandardError
+      rescue StandardError => e
+        puts "ERROR: #{e.message} : #{e.backtrace}"
       else
         processed = true
       end
