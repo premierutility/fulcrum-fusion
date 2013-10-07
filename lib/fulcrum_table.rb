@@ -1,3 +1,4 @@
+require 'fusion_tables'
 require 'yaml'
 require 'forwardable'
 
