@@ -10,7 +10,7 @@ class RecordProcessor
     end
 
     def row_id
-      row_id = row ? row[:rowid] : nil
+      row ? row[:rowid] : nil
     end
   end
 end
