@@ -22,9 +22,10 @@ class FulcrumTable
     @ft.set_api_key config["google_api_key"]
   end
 
-  def create_table(name)
+  def create_table(name, columns)
     return unless table_doesnt_exist(name)
-    self.table = @ft.create_table(name.to_s, COLS)
+    custom_columns = columns.concat(COLS) # User-defined columns are at beginning
+    self.table = @ft.create_table(name.to_s, custom_columns)
   end
 
   def existing_table(fulcrum_id)
