@@ -1,5 +1,4 @@
 require 'fusion_tables'
-require 'yaml'
 require 'forwardable'
 
 class FulcrumTable
@@ -12,14 +11,11 @@ class FulcrumTable
   attr_accessor :table
 
   def initialize
-    # Configure settings
-    dir = File.join(File.dirname(__FILE__), "..")
-    config = YAML::load_file(File.join(dir, 'credentials.yml'))
-
     # Configure fusion tables
+    cred = Credentials.new
     @ft = GData::Client::FusionTables.new
-    @ft.clientlogin config["google_username"], config["google_password"]
-    @ft.set_api_key config["google_api_key"]
+    @ft.clientlogin cred.google_username, cred.google_password
+    @ft.set_api_key cred.google_api_key
   end
 
   def create_table(name, columns)
