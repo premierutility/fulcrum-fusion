@@ -3,7 +3,7 @@ class RecordData
     @record = event_data
   end
 
-  def converted
+  def to_fusion_format
     convert_location
     convert_form_values
     @record
