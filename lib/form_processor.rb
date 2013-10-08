@@ -36,7 +36,7 @@ private
   end
 
   def form_id
-    @event_data["data"]["id"].gsub("-", "")
+    FormUtils.id(@event_data['data']['id'])
   end
 end
 

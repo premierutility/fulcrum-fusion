@@ -8,9 +8,9 @@ class RecordProcessor
   def initialize(action_name, event_data)
     @action_name = action_name
     @event_data  = event_data
-    @record_row = convert_record_data(@event_data["data"])
+    @record_row = convert_record_data(@event_data['data'])
 
-    id = @event_data["data"]["form_id"].gsub("-", "")
+    id = FormUtils.id(@event_data['data']['form_id'])
     @table = FulcrumTable.new.existing_table(id)
   end
 
@@ -45,7 +45,7 @@ private
   end
 
   def convert_record_data(record)
-    record["form_values"] = record["form_values"].to_json
+    record['form_values'] = record['form_values'].to_json
     location = "#{record.delete('latitude')},#{record.delete('longitude')}"
     record['location'] = location
     record
