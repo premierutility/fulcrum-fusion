@@ -3,6 +3,7 @@ require_relative 'record_processor/base'
 require_relative 'record_processor/record_creator'
 require_relative 'record_processor/record_updater'
 require_relative 'record_processor/record_deleter'
+require_relative 'record_data'
 
 class RecordProcessor
   def initialize(action_name, event_data)
@@ -45,10 +46,7 @@ private
   end
 
   def convert_record_data(record)
-    record['form_values'] = record['form_values'].to_json
-    location = "#{record.delete('latitude')},#{record.delete('longitude')}"
-    record['location'] = location
-    record
+    RecordData.new(record).converted
   end
 end
 
