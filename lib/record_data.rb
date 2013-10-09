@@ -1,6 +1,9 @@
+require_relative 'column_names'
+
 class RecordData
   def initialize(event_data)
     @record = event_data
+
   end
 
   def to_fusion_format
@@ -19,6 +22,17 @@ private
   end
 
   def convert_form_values
-    @record['form_values'] = @record['form_values'].to_json
+    form_id = @record['form_id']
+    form_columns = ColumnNames.get_form_columns form_id
+    raw_record_data = @record.delete('form_values')
+
+    map_record_data(form_columns, raw_record_data)
+  end
+
+  def map_record_data(form_columns, raw_record_data)
+    raw_record_data.map do |column_id, value|
+      column_name = form_columns[column_id]
+      @record[column_name] = value
+    end
   end
 end
