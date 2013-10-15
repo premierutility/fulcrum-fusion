@@ -31,17 +31,12 @@ class EventProcessor
   end
 
 private
+  PROCESSORS = { 'form' => FormProcessor, 'record' => RecordProcessor }
+
   def event
     return @event if @event
 
-    case @resource
-    when 'form'
-      klass = FormProcessor
-    when 'record'
-      klass = RecordProcessor
-    else
-      return nil
-    end
+    klass = PROCESSORS[@resource]
 
     @event = klass.new(@action, @event_data)
   end
