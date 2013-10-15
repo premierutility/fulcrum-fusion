@@ -13,6 +13,7 @@ class ColumnNames
     configure_api
 
     form = Fulcrum::Form.find(form_id)['form']
+    return unless form
     elements = form['elements']
     {}.tap do |h|
       elements.map {|e| h[e['key']] = e['label'] }

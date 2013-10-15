@@ -24,6 +24,7 @@ private
   def convert_form_values
     form_id = @record['form_id']
     form_columns = ColumnNames.get_form_columns form_id
+    return unless form_columns
     raw_record_data = @record.delete('form_values')
 
     map_record_data(form_columns, raw_record_data)
