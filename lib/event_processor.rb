@@ -15,12 +15,14 @@ class EventProcessor
 
     processed = false
 
-    until processed
+    try_count = 0
+    until processed || try_count == 10
       begin
         status = event.process
         sleep 1 if status == 201 || status == 204 # To prevent rate-limiting
       rescue StandardError => e
         puts "ERROR: #{e.inspect} : #{e.message}\n\n#{e.backtrace}"
+        try_count += 1
         sleep 2
       else
         processed = true
