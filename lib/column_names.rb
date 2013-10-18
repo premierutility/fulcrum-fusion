@@ -1,5 +1,4 @@
 require 'fulcrum'
-require_relative 'credentials'
 
 class ColumnNames
   def self.from_form(columns_data)
@@ -24,7 +23,9 @@ private
   def self.configure_api
     Fulcrum::Api.configure do |config|
       config.uri = 'https://api.fulcrumapp.com/api/v2'
-      config.key = Credentials.new.fulcrum_api_key
+      config.uri = 'http://localhost:3000/api/v2'# TODO: For testing, set this to localhost!
+      config.key = ENV['FULCRUM_API_KEY']
     end
   end
 end
+

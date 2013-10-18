@@ -12,10 +12,9 @@ class FulcrumTable
 
   def initialize
     # Configure fusion tables
-    cred = Credentials.new
     @ft = GData::Client::FusionTables.new
-    @ft.clientlogin cred.google_username, cred.google_password
-    @ft.set_api_key cred.google_api_key
+    @ft.clientlogin ENV['GOOGLE_USERNAME'], ENV['GOOGLE_PASSWORD']
+    @ft.set_api_key ENV['GOOGLE_API_KEY']
   end
 
   def create_table(name, columns)
