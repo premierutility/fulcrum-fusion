@@ -55,6 +55,7 @@ class FulcrumTable
       { name: "version",             type: "number"   },
       { name: "id",                  type: "string"   },
       { name: "form_id",             type: "string"   },
+      { name: "form_version",        type: "number"   },
       { name: "project_id",          type: "string"   },
       { name: "created_at",          type: "string"   },
       { name: "updated_at",          type: "string"   },
