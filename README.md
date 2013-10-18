@@ -9,7 +9,28 @@ and used to push changes to your Fulcrum data to Google's Fusion Tables.
 Production
 ----------
 
-Coming soon...
+### Deploy
+
+Deploy to Heroku using the following steps:
+
+- Clone this repo
+- `cd fulcrum-fusion`
+- [Install the Heroku Toolbelt](https://toolbelt.heroku.com/)
+- `heroku login`
+- `heroku create`
+  - Look for the application name from this
+  - Use it to visit it on the web
+- `heroku config:set GOOGLE_USERNAME=<your google username>`
+- `heroku config:set GOOGLE_PASSWORD=<your google password>`
+- `heroku config:set GOOGLE_API_KEY=<your google api key>`
+- `heroku config:set FULCRUM_API_KEY=<your api key for your fulcrum org>`
+- `git push heroku master`
+
+For more help check out [how to get started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) on Heroku.
+
+### Webhooks
+
+Go into Fulcrum and add your Heroku application's URL as a webhook.
 
 Development
 -----------
@@ -23,13 +44,15 @@ bundle install
 ### Setup
 
 ```
-cp credentials.yml.sample credentials.yml
+cp credentials.rb.sample credentials.rb
 ```
 
 Then fill in the file with your Google username, password, and [API token](https://cloud.google.com/console).
 
 Note: If you have Google's 2-step verification enabled, you will need to
 [generate an application-specific password](https://accounts.google.com/b/0/IssuedAuthSubTokens).
+
+Also add your API key for the Fulcrum Organization you're interested in.
 
 ### Run
 
@@ -39,10 +62,15 @@ We need to run the Sinatra server:
 ruby fulcrum_fusion.rb
 ```
 
+### Port
+
+If the environment variable $PORT is set, the Sinatra app will listen there.
+Otherwise, it will default to 4567.
+
 ### Webhooks
 
-The Sinatra app runs on port `3002` by default. Add a webhook for your
-Organization using this as the URL.
+Add a webhook for your Organization using `localhost:<port_from_above>` as the
+URL.
 
 ### Seeing it in Action
 
