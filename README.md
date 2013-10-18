@@ -29,6 +29,9 @@ Deploy to Heroku using the following steps:
 
 For more help check out [how to get started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) on Heroku.
 
+Note: Change FULCRUM_API_URL appropriately if you're using something other
+than the default production API.
+
 ### Webhooks
 
 Go into Fulcrum and add your Heroku application's URL as a webhook.
@@ -53,6 +56,7 @@ Then fill in the file with your Google username, password, and [API token](https
 Note: If you have Google's 2-step verification enabled, you will need to
 [generate an application-specific password](https://accounts.google.com/b/0/IssuedAuthSubTokens).
 
+Remember to change the API url, since you're likely not hitting production.
 Also add your API key for the Fulcrum Organization you're interested in.
 
 ### Run
