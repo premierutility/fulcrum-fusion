@@ -3,3 +3,4 @@ class FormUtils
     string.gsub('-', '')
   end
 end
+

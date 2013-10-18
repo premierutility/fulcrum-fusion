@@ -42,7 +42,7 @@ class FulcrumTable
 
   private
     def table_doesnt_exist(text)
-      retrieve_table(text) == nil
+      retrieve_table(text).nil?
     end
 
     def retrieve_table(text)
