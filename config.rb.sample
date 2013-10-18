@@ -1,5 +1,6 @@
 ENV['GOOGLE_USERNAME'] = '<your google username>'
 ENV['GOOGLE_PASSWORD'] = '<your google password>'
 ENV['GOOGLE_API_KEY']  = '<your google api key>'
+ENV['FULCRUM_API_URL'] = 'https://api.fulcrumapp.com/api/v2'>`
 ENV['FULCRUM_API_KEY'] = '<your api key for your fulcrum org>'
 

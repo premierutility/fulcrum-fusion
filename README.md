@@ -23,6 +23,7 @@ Deploy to Heroku using the following steps:
 - `heroku config:set GOOGLE_USERNAME=<your google username>`
 - `heroku config:set GOOGLE_PASSWORD=<your google password>`
 - `heroku config:set GOOGLE_API_KEY=<your google api key>`
+- `heroku config:set FULCRUM_API_URL='https://api.fulcrumapp.com/api/v2'>`
 - `heroku config:set FULCRUM_API_KEY=<your api key for your fulcrum org>`
 - `git push heroku master`
 

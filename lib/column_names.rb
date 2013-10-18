@@ -22,7 +22,7 @@ class ColumnNames
 private
   def self.configure_api
     Fulcrum::Api.configure do |config|
-      config.uri = 'https://api.fulcrumapp.com/api/v2'
+      config.uri = ENV['FULCRUM_API_URL']
       config.key = ENV['FULCRUM_API_KEY']
     end
   end

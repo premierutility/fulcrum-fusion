@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'json'
 require_relative 'lib/event_processor'
-require_relative 'credentials.rb' if File.exists?('credentials.rb')
+require_relative 'config.rb' if File.exists?('config.rb')
 
 set :port, ENV['PORT'] if ENV['PORT']  # Configure sinatra
 
