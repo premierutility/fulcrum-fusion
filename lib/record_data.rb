@@ -27,15 +27,18 @@ private
     return unless form_columns
 
     raw_record_data = @record['form_values']
-    map_record_data(form_columns, raw_record_data)
+    mapped_form_values = map_record_data(form_columns, raw_record_data)
+    @record.merge!(mapped_form_values)
 
     @record['form_values'] = @record['form_values'].to_json
   end
 
   def map_record_data(form_columns, raw_record_data)
-    raw_record_data.map do |column_id, value|
-      column_name = form_columns[column_id]
-      @record[column_name] = value
+    {}.tap do |h|
+      raw_record_data.map do |column_id, value|
+        column_name = form_columns[column_id]
+        h[column_name] = value
+      end
     end
   end
 end
