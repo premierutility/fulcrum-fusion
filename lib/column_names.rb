@@ -11,9 +11,9 @@ class ColumnNames
   def self.get_form_columns(form_id)
     configure_api
 
-    form = Fulcrum::Form.find(form_id)['form']
-    return unless form
-    elements = form['elements']
+    form = Fulcrum::Form.find(form_id)
+    return unless form && form['form']
+    elements = form['form']['elements']
     {}.tap do |h|
       elements.map {|e| h[e['key']] = e['label'] }
     end
@@ -23,7 +23,6 @@ private
   def self.configure_api
     Fulcrum::Api.configure do |config|
       config.uri = 'https://api.fulcrumapp.com/api/v2'
-      config.uri = 'http://localhost:3000/api/v2'# TODO: For testing, set this to localhost!
       config.key = ENV['FULCRUM_API_KEY']
     end
   end
