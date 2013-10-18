@@ -70,6 +70,7 @@ ruby fulcrum_fusion.rb
 ### Port
 
 If the environment variable $PORT is set, the Sinatra app will listen there.
+This can also be overridden in config.rb by defining the port there.
 Otherwise, it will default to 4567.
 
 ### Webhooks

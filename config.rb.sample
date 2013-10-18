@@ -1,3 +1,4 @@
+ENV['PORT']            = '3002'
 ENV['GOOGLE_USERNAME'] = '<your google username>'
 ENV['GOOGLE_PASSWORD'] = '<your google password>'
 ENV['GOOGLE_API_KEY']  = '<your google api key>'
