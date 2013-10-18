@@ -11,9 +11,9 @@ class ColumnNames
   def self.get_form_columns(form_id)
     configure_api
 
-    form = Fulcrum::Form.find(form_id)
-    return unless form && form['form']
-    elements = form['form']['elements']
+    request = Fulcrum::Form.find(form_id)
+    return unless request && request['form']
+    elements = request['form']['elements']
     {}.tap do |h|
       elements.map {|e| h[e['key']] = e['label'] }
     end
