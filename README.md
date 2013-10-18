@@ -6,10 +6,12 @@ An application to integrate [Fulcrum](http://fulcrumapp.com/) and [Fusion Tables
 This web application can be hosted, configured as a Webhook within Fulcrum,
 and used to push changes to your Fulcrum data to Google's Fusion Tables.
 
-Production
-----------
+Getting Started
+---------------
 
-### Deploy
+### Production
+
+#### Deploy
 
 Deploy to Heroku using the following steps:
 
@@ -32,20 +34,19 @@ For more help check out [how to get started with Node.js](https://devcenter.hero
 Note: Change FULCRUM_API_URL appropriately if you're using something other
 than the default production API.
 
-### Webhooks
+#### Webhooks
 
 Go into Fulcrum and add your Heroku application's URL as a webhook.
 
-Development
------------
+### Development
 
-### Install
+#### Install
 
 ```
 bundle install
 ```
 
-### Setup
+#### Setup
 
 ```
 cp credentials.rb.sample credentials.rb
@@ -59,7 +60,7 @@ Note: If you have Google's 2-step verification enabled, you will need to
 Remember to change the API url, since you're likely not hitting production.
 Also add your API key for the Fulcrum Organization you're interested in.
 
-### Run
+#### Run
 
 We need to run the Sinatra server:
 
@@ -67,18 +68,19 @@ We need to run the Sinatra server:
 ruby fulcrum_fusion.rb
 ```
 
-### Port
+#### Port
 
 If the environment variable $PORT is set, the Sinatra app will listen there.
 This can also be overridden in config.rb by defining the port there.
 Otherwise, it will default to 4567.
 
-### Webhooks
+#### Webhooks
 
 Add a webhook for your Organization using `localhost:<port_from_above>` as the
 URL.
 
-### Seeing it in Action
+Seeing it in Action
+-------------------
 
 This assumes everything is hooked up properly.
 
@@ -94,10 +96,9 @@ appropriate Fusion Table.
 - Each new from will be created as a new Fusion Table.
 - A table will be created called `FulcrumApp_{FormName}_WithId_{FormId}`. The
   name is constricted by the library used to work with Fusion Tables.
-- All the column names in the application are columns from the API. There
-  aren't any dynamic ones yet.
 
-### Limitations
+Limitations
+-----------
 
 Here's how things currently work:
 
