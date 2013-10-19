@@ -39,6 +39,7 @@ private
     return @event if @event
 
     klass = PROCESSORS[@resource]
+    return unless klass
 
     @event = klass.new(@action, @event_data)
   end
