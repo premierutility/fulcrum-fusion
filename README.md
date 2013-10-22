@@ -1,10 +1,83 @@
 Fulcrum Fusion
 ==============
 
-An application to integrate [Fulcrum](http://fulcrumapp.com/) and [Fusion Tables](http://www.google.com/drive/apps.html#fusiontables).
+An application to integrate [Fulcrum](http://fulcrumapp.com/) and
+[Fusion Tables](http://www.google.com/drive/apps.html#fusiontables).
 
-This web application can be hosted, configured as a Webhook within Fulcrum,
-and used to push changes to your Fulcrum data to Google's Fusion Tables.
+This application is meant to be deployed. Once deployed, we can set it as a
+Webhook within Fulcrum. Once set as a webhook, it will push changes to our
+Fulcrum data to Google's Fusion Tables.
+
+Configuring
+-----------
+
+First off, let's gather the configuration we'll need.
+
+Below, we'll talk about these configuration variables:
+
+- `PORT`
+- `GOOGLE_USERNAME`
+- `GOOGLE_PASSWORD`
+- `GOOGLE_API_KEY`
+- `FULCRUM_API_URL`
+- `FULCRUM_API_KEY`
+
+We'll first run through what values you'll use for each one.
+
+### PORT
+
+This is the port the Sinatra application will listen to.
+
+If deploying to heroku, don't worry about this.
+If you're running locally, be safe and use the value of 4567.
+
+If you don't specify it, and you have a $PORT environment variable already
+defined, it'll use that. Like on Heroku.
+If you don't define it, and it's not set in your environment, it'll default to
+4567.
+
+### GOOGLE_USERNAME
+
+You'll need a Google account to interact with the Fusion Tables. This value is
+simply your Google account's username. For instance, if your Gmail address is
+`walter.white@gmail.com`, your username is simply `walter.white`.
+
+### GOOGLE_PASSWORD
+
+This is the password for your Google account. The configuration file is
+ignored from the git repository by default, so the password isn't going to be
+shared with everyone.
+
+Note: If you have Google's 2-step verification enabled, you will need to
+[generate an application-specific password](https://accounts.google.com/b/0/IssuedAuthSubTokens).
+Then use this application-specific password for this value, instead of your
+regular password. Using your regular password will cause issues since we don't
+perform the 2nd step of the verification.
+
+### GOOGLE_API_KEY
+
+You need to use the google account above to set up an
+[API token](https://cloud.google.com/console). This token is tied to your
+google account and will be used for interacting with your Google Fusion
+Tables.
+
+### FULCRUM_API_URL
+
+You'll likely want to use `https://web.fulcrumapp.com/api/v2` for this value.
+
+If you're using something other than the default production API, however, be
+sure to change this value appropriately. For instance, when you're doing local
+development or testing outside of production.
+
+### FULCRUM_API_KEY
+
+This is the API key belonging to the member of the organization you'll be
+using for this account. Remember, your plan needs to
+[support webhooks](TODO: Link) and the member needs to have the
+[proper permission](TODO: Link).
+
+Remember, this API key is specific to the organization, member and
+FULCRUM_API_URL specified above.
 
 Getting Started
 ---------------
@@ -21,18 +94,17 @@ Deploy to Heroku using the following steps:
 - `heroku login`
 - `heroku create`
   - Look for the application name from this
-  - Use it to visit it on the web
-- `heroku config:set GOOGLE_USERNAME=<your google username>`
-- `heroku config:set GOOGLE_PASSWORD=<your google password>`
-- `heroku config:set GOOGLE_API_KEY=<your google api key>`
-- `heroku config:set FULCRUM_API_URL='https://api.fulcrumapp.com/api/v2'>`
-- `heroku config:set FULCRUM_API_KEY=<your api key for your fulcrum org>`
+  - Remember this name/URL for later
+- `heroku config:set GOOGLE_USERNAME=<value from above>`
+- `heroku config:set GOOGLE_PASSWORD=<value from above>`
+- `heroku config:set GOOGLE_API_KEY=<value from above>`
+- `heroku config:set FULCRUM_API_URL='<value from above>`
+- `heroku config:set FULCRUM_API_KEY=<value from above>`
 - `git push heroku master`
 
-For more help check out [how to get started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) on Heroku.
-
-Note: Change FULCRUM_API_URL appropriately if you're using something other
-than the default production API.
+For more help check out
+[how to get started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+on Heroku.
 
 #### Webhooks
 
@@ -49,13 +121,10 @@ bundle install
 #### Setup
 
 ```
-cp credentials.rb.sample credentials.rb
+cp config.rb.sample config.rb
 ```
 
-Then fill in the file with your Google username, password, and [API token](https://cloud.google.com/console).
-
-Note: If you have Google's 2-step verification enabled, you will need to
-[generate an application-specific password](https://accounts.google.com/b/0/IssuedAuthSubTokens).
+Use the configuration values from above to fill in `config.rb`.
 
 Remember to change the API url, since you're likely not hitting production.
 Also add your API key for the Fulcrum Organization you're interested in.
@@ -68,16 +137,9 @@ We need to run the Sinatra server:
 ruby fulcrum_fusion.rb
 ```
 
-#### Port
-
-If the environment variable $PORT is set, the Sinatra app will listen there.
-This can also be overridden in config.rb by defining the port there.
-Otherwise, it will default to 4567.
-
 #### Webhooks
 
-Add a webhook for your Organization using `localhost:<port_from_above>` as the
-URL.
+Go into Fulcrum and add `localhost:<port_from_above>` as the URL.
 
 Seeing it in Action
 -------------------
@@ -91,18 +153,16 @@ created above.
 * Do an import in Fulcrum. Shortly you'll see the form and all the data in the
 appropriate Fusion Table.
 
-####Notes:
-
-- Each new from will be created as a new Fusion Table.
-- A table will be created called `FulcrumApp_{FormName}_WithId_{FormId}`. The
-  name is constricted by the library used to work with Fusion Tables.
-
 Limitations
 -----------
 
 Here's how things currently work:
 
+- Each new from will be created as a new Fusion Table.
+- A table will be created called `FulcrumApp_{FormName}_WithId_{FormId}`. The
+  name is constricted by the library used to work with Fusion Tables.
 - Due to limits with the Fusion Tables API, there maybe some failures.  The
-  code will retry the same request until it succeeds. This could exceed the 20
-  second timeout for the webhooks, but it's unlikely.
+  code will retry the same request until it succeeds or it reaches a maximum
+  of 10 retries. This could exceed the 20 second timeout for the webhooks, but
+  it's unlikely.
 
