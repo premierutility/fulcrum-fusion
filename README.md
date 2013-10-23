@@ -96,7 +96,7 @@ Deploy to Heroku using the following steps:
   - Look for the application name from this
   - Remember this name/URL for later
 
-### Configure
+#### Configure
 
 Use the configuration values from above to fill in these values:
 
@@ -106,7 +106,7 @@ Use the configuration values from above to fill in these values:
 - `heroku config:set FULCRUM_API_URL='<value from above>`
 - `heroku config:set FULCRUM_API_KEY=<value from above>`
 
-### Deploy
+#### Deploy
 - `git push heroku master`
 
 For more help check out
