@@ -1,4 +1,4 @@
-require_relative 'fulcrum_table'
+require_relative 'system_columns'
 
 class RecordColumnSanitizer
   def initialize(attrs)
@@ -6,7 +6,7 @@ class RecordColumnSanitizer
   end
 
   def sanitize
-    @attrs.slice(*FulcrumTable.system_columns)
+    @attrs.slice(*SystemColumns.names)
   end
 end
 

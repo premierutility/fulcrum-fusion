@@ -1,5 +1,6 @@
 require 'fusion_tables'
 require 'forwardable'
+require_relative 'system_columns'
 
 class FulcrumTable
   extend Forwardable
@@ -9,10 +10,6 @@ class FulcrumTable
   def_delegator :table, :select
 
   attr_accessor :table
-
-  def self.system_columns
-    COLS.each.map {|c| c[:name] }
-  end
 
   def initialize(table_name)
     configure_fusion_tables
@@ -58,37 +55,11 @@ class FulcrumTable
     end
 
     def all_columns_with_users_first(user_columns)
-      user_columns.concat(COLS)
+      user_columns.concat(SystemColumns.data)
     end
 
     def table_was_dropped?(num_tables_dropped)
       num_tables_dropped == 1
     end
-
-    COLS = [
-      { name: "status",              type: "string"   },
-      { name: "version",             type: "number"   },
-      { name: "id",                  type: "string"   },
-      { name: "form_id",             type: "string"   },
-      { name: "form_version",        type: "number"   },
-      { name: "project_id",          type: "string"   },
-      { name: "created_at",          type: "string"   },
-      { name: "updated_at",          type: "string"   },
-      { name: "client_created_at",   type: "string"   },
-      { name: "client_updated_at",   type: "string"   },
-      { name: "created_by",          type: "string"   },
-      { name: "created_by_id",       type: "string"   },
-      { name: "updated_by",          type: "string"   },
-      { name: "updated_by_id",       type: "string"   },
-      { name: "assigned_to",         type: "string"   },
-      { name: "assigned_to_id",      type: "string"   },
-      { name: "form_values",         type: "string"   },
-      { name: "location",            type: "location" },
-      { name: "altitude",            type: "number"   },
-      { name: "speed",               type: "number"   },
-      { name: "course",              type: "string"   },
-      { name: "horizontal_accuracy", type: "string"   },
-      { name: "vertical_accuracy",   type: "string"   }
-    ]
 end
 
