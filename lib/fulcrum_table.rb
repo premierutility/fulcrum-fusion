@@ -15,10 +15,7 @@ class FulcrumTable
   end
 
   def initialize(table_name)
-    # Configure fusion tables
-    @ft = GData::Client::FusionTables.new
-    @ft.clientlogin ENV['GOOGLE_USERNAME'], ENV['GOOGLE_PASSWORD']
-    @ft.set_api_key ENV['GOOGLE_API_KEY']
+    configure_fusion_tables
 
     @table_name = table_name.to_s
     retrieve_table
@@ -44,6 +41,12 @@ class FulcrumTable
   end
 
   private
+    def configure_fusion_tables
+      @ft = GData::Client::FusionTables.new
+      @ft.clientlogin ENV['GOOGLE_USERNAME'], ENV['GOOGLE_PASSWORD']
+      @ft.set_api_key ENV['GOOGLE_API_KEY']
+    end
+
     def retrieve_table
       tables = @ft.show_tables
       self.table =
