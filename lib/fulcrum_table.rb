@@ -31,9 +31,9 @@ class FulcrumTable
   def drop_table
     return unless table_exists?
 
-    drop_count = @ft.drop(Regexp.new(@table_name))
+    num_tables_dropped = @ft.drop(Regexp.new(@table_name))
 
-    if drop_count == 1
+    if table_was_dropped?(num_tables_dropped)
       table
     else
       nil
@@ -59,6 +59,10 @@ class FulcrumTable
 
     def all_columns_with_users_first(user_columns)
       user_columns.concat(COLS)
+    end
+
+    def table_was_dropped?(num_tables_dropped)
+      num_tables_dropped == 1
     end
 
     COLS = [
