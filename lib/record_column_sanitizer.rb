@@ -6,7 +6,7 @@ class RecordColumnSanitizer
   end
 
   def sanitize
-    @attrs.slice(*FulcrumTable.allowed_columns)
+    @attrs.slice(*FulcrumTable.system_columns)
   end
 end
 

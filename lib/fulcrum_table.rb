@@ -10,7 +10,7 @@ class FulcrumTable
 
   attr_accessor :table
 
-  def self.allowed_columns
+  def self.system_columns
     COLS.each.map {|c| c[:name] }
   end
 
