@@ -1,4 +1,5 @@
 require 'fulcrum'
+require_relative '../config.rb' if File.exists?('config.rb')
 
 class ColumnNames
   def self.from_form(columns_data)
