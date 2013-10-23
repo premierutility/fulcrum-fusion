@@ -1,4 +1,5 @@
 require_relative 'column_names'
+require_relative 'record_column_sanitizer'
 
 class RecordData
   def initialize(event_data)
@@ -8,6 +9,7 @@ class RecordData
 
   def to_fusion_format
     convert_location
+    sanitize_columns_in_record
     convert_form_values
     @record
   end
@@ -19,6 +21,10 @@ private
 
     location = "#{lat},#{long}"
     @record['location'] = location
+  end
+
+  def sanitize_columns_in_record
+    @record = RecordColumnSanitizer.new(@record).sanitize
   end
 
   def convert_form_values

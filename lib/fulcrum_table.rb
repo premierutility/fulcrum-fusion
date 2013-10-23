@@ -10,6 +10,10 @@ class FulcrumTable
 
   attr_accessor :table
 
+  def self.allowed_columns
+    COLS.each.map {|c| c[:name] }
+  end
+
   def initialize
     # Configure fusion tables
     @ft = GData::Client::FusionTables.new
