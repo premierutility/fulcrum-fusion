@@ -9,7 +9,7 @@ class FormProcessor
     end
 
     def process
-      table = FulcrumTable.new.create_table(form_name, columns)
+      table = FulcrumTable.new(form_name).create_table(columns)
 
       if table
         201 # Created

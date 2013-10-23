@@ -12,7 +12,7 @@ class RecordProcessor
     @record_row = RecordData.new(@event_data['data']).to_fusion_format
 
     id = FormUtils.id(@event_data['data']['form_id'])
-    @table = FulcrumTable.new.existing_table(id)
+    @table = FulcrumTable.new(id).table
   end
 
   def process

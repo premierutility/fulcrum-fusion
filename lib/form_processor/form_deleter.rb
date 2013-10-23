@@ -7,7 +7,7 @@ class FormProcessor
     end
 
     def process
-      table = FulcrumTable.new.drop_table(@form_id)
+      table = FulcrumTable.new(@form_id).drop_table
 
       if table
         204 # No Content

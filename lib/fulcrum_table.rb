@@ -14,29 +14,27 @@ class FulcrumTable
     COLS.each.map {|c| c[:name] }
   end
 
-  def initialize
+  def initialize(table_name)
     # Configure fusion tables
     @ft = GData::Client::FusionTables.new
     @ft.clientlogin ENV['GOOGLE_USERNAME'], ENV['GOOGLE_PASSWORD']
     @ft.set_api_key ENV['GOOGLE_API_KEY']
+
+    @table_name = table_name.to_s
+    retrieve_table
   end
 
-  def create_table(name, user_columns)
-    return if table_exists?(name)
+  def create_table(user_columns)
+    return if table_exists?
 
     all_columns = all_columns_with_users_first(user_columns)
-    self.table = @ft.create_table(name.to_s, all_columns)
+    self.table = @ft.create_table(@table_name, all_columns)
   end
 
-  def existing_table(fulcrum_id)
-    self.table = retrieve_table(fulcrum_id)
-  end
+  def drop_table
+    return unless table_exists?
 
-  def drop_table(fulcrum_id)
-    table = retrieve_table(fulcrum_id)
-    return unless table
-
-    drop_count = @ft.drop(Regexp.new(fulcrum_id))
+    drop_count = @ft.drop(Regexp.new(@table_name))
 
     if drop_count == 1
       table
@@ -46,17 +44,18 @@ class FulcrumTable
   end
 
   private
-    def table_exists?(text)
-      !!retrieve_table(text)
+    def retrieve_table
+      tables = @ft.show_tables
+      self.table =
+        tables.select{|t| t.name.match(Regexp.new(@table_name))}.first
+    end
+
+    def table_exists?
+      !!table
     end
 
     def all_columns_with_users_first(user_columns)
       user_columns.concat(COLS)
-    end
-
-    def retrieve_table(text)
-      tables = @ft.show_tables
-      tables.select{|t| t.name.match(Regexp.new(text))}.first
     end
 
     COLS = [
