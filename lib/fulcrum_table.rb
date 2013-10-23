@@ -22,7 +22,8 @@ class FulcrumTable
   end
 
   def create_table(name, user_columns)
-    return unless table_doesnt_exist(name)
+    return if table_exists?(name)
+
     all_columns = all_columns_with_users_first(user_columns)
     self.table = @ft.create_table(name.to_s, all_columns)
   end
@@ -45,8 +46,8 @@ class FulcrumTable
   end
 
   private
-    def table_doesnt_exist(text)
-      retrieve_table(text).nil?
+    def table_exists?(text)
+      !!retrieve_table(text)
     end
 
     def all_columns_with_users_first(user_columns)
