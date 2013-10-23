@@ -21,10 +21,10 @@ class FulcrumTable
     @ft.set_api_key ENV['GOOGLE_API_KEY']
   end
 
-  def create_table(name, columns)
+  def create_table(name, user_columns)
     return unless table_doesnt_exist(name)
-    custom_columns = columns.concat(COLS) # User-defined columns are at beginning
-    self.table = @ft.create_table(name.to_s, custom_columns)
+    all_columns = all_columns_with_users_first(user_columns)
+    self.table = @ft.create_table(name.to_s, all_columns)
   end
 
   def existing_table(fulcrum_id)
@@ -47,6 +47,10 @@ class FulcrumTable
   private
     def table_doesnt_exist(text)
       retrieve_table(text).nil?
+    end
+
+    def all_columns_with_users_first(user_columns)
+      user_columns.concat(COLS)
     end
 
     def retrieve_table(text)
