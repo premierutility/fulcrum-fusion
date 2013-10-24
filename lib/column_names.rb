@@ -3,10 +3,26 @@ require_relative '../config.rb' if File.exists?('config.rb')
 
 class ColumnNames
   def self.from_form(columns_data)
+    columns_data = columns_data.dup
+
+    class << columns_data
+      def extract_column_info
+        map!{|e| [e["key"], e["label"]]}
+      end
+
+      def sort_alphabetically
+        sort!{|a,b| a[0] <=> b[0]}
+      end
+
+      def map_to_fusion_schema
+        map!{|e| {name: e[1], type: "string"} }
+      end
+    end
+
     columns_data.
-      map{|e| [e["key"], e["label"]] }.
-      sort{|a,b| a[0] <=> b[0]}.
-      map{|e| {name: e[1], type: "string"} }
+      extract_column_info.
+      sort_alphabetically.
+      map_to_fusion_schema
   end
 
   def self.get_form_columns(form_id)

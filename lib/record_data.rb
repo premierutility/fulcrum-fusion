@@ -19,7 +19,7 @@ class RecordData
     unless @raw
       @raw = @record
       @raw = convert_location(@raw)
-      @raw = sanitize_columns_in_record(@raw)
+      @raw = sanitize_columns(@raw)
     end
 
     @raw
@@ -35,7 +35,7 @@ private
     record
   end
 
-  def sanitize_columns_in_record(record)
+  def sanitize_columns(record)
     RecordColumnSanitizer.new(record).sanitize
   end
 
