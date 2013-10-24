@@ -29,7 +29,8 @@ class FormProcessor
     end
 
     def columns
-      FormFields.from_form(@event_data["data"]["elements"])
+      form_fields = @event_data["data"]["elements"]
+      FormFields.new(form_fields).fusion_column_schema
     end
   end
 end

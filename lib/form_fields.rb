@@ -2,10 +2,14 @@ require 'fulcrum'
 require_relative '../config.rb' if File.exists?('config.rb')
 
 class FormFields
-  def self.from_form(columns_data)
-    columns_data = columns_data.dup
+  def initalize(form_fields)
+    @form_fields = form_fields
+  end
 
-    class << columns_data
+  def fusion_column_schema
+    @form_fields = @form_fields.dup
+
+    class << @form_fields
       def extract_column_info
         map!{|e| [e["key"], e["label"]]}
       end
@@ -19,7 +23,7 @@ class FormFields
       end
     end
 
-    columns_data.
+    @form_fields.
       extract_column_info.
       sort_alphabetically.
       map_to_fusion_schema
