@@ -9,7 +9,7 @@ class RecordProcessor
   def initialize(action_name, event_data)
     @action_name = action_name
     @event_data  = event_data
-    @record_row = RecordData.new(@event_data['data']).to_fusion_format
+    @record_data = RecordData.new(@event_data['data'])
 
     id = FormUtils.id(@event_data['data']['form_id'])
     @table = FulcrumTable.new(id).table
@@ -42,7 +42,7 @@ private
       return nil
     end
 
-    @action = klass.new(@table, @record_row)
+    @action = klass.new(@table, @record_data)
   end
 end
 

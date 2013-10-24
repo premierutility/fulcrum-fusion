@@ -172,4 +172,9 @@ Here's how things currently work:
   code will retry the same request until it succeeds or it reaches a maximum
   of 10 retries. This could exceed the 20 second timeout for the webhooks, but
   it's unlikely.
+- A record that comes in with columns that aren't in the Fusion Table will
+  not be able to be added with the user-filled in columns added. Only the
+  "system" columns applicable to all fusion tables can be filled in, in this
+  case. The data will still be available in JSON form in the  'form_fields'
+  column.
 
