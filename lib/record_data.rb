@@ -1,4 +1,4 @@
-require_relative 'column_names'
+require_relative 'form_fields'
 require_relative 'record_column_sanitizer'
 
 class RecordData
@@ -41,7 +41,7 @@ private
 
   def convert_form_values(record)
     form_id = record['form_id']
-    form_columns = ColumnNames.get_form_columns form_id
+    form_columns = FormFields.get_form_columns form_id
     return unless form_columns
 
     raw_record_data = record['form_values']

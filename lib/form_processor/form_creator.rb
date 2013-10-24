@@ -1,5 +1,5 @@
 require_relative '../fulcrum_table'
-require_relative '../column_names'
+require_relative '../form_fields'
 
 class FormProcessor
   class FormCreator
@@ -29,7 +29,7 @@ class FormProcessor
     end
 
     def columns
-      ColumnNames.from_form(@event_data["data"]["elements"])
+      FormFields.from_form(@event_data["data"]["elements"])
     end
   end
 end

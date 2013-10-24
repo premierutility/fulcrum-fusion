@@ -1,7 +1,7 @@
 require 'fulcrum'
 require_relative '../config.rb' if File.exists?('config.rb')
 
-class ColumnNames
+class FormFields
   def self.from_form(columns_data)
     columns_data = columns_data.dup
 
