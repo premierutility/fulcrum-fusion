@@ -11,7 +11,7 @@ class ColumnNames
       end
 
       def sort_alphabetically
-        sort!{|a,b| a[0] <=> b[0]}
+        sort!{|a,b| a[1] <=> b[1]}
       end
 
       def map_to_fusion_schema
