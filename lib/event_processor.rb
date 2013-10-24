@@ -33,7 +33,11 @@ class EventProcessor
   end
 
 private
-  PROCESSORS = { 'form' => FormProcessor, 'record' => RecordProcessor }.freeze
+  PROCESSORS =
+    {
+      'form'   => FormProcessor,
+      'record' => RecordProcessor
+    }.freeze
 
   def event
     return @event if @event

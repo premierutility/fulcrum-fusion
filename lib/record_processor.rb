@@ -22,25 +22,21 @@ class RecordProcessor
   end
 
 private
+  ACTIONS =
+    {
+      'create' => RecordCreator,
+      'update' => RecordUpdater,
+      'delete' => RecordDeleter
+    }.freeze
+
   def action
     # The record is for a table that doesn't exist, so don't process it.
     return nil unless @table
 
     return @action if @action
 
-    case @action_name
-    when 'create'
-      klass = RecordCreator
-
-    when 'update'
-      klass = RecordUpdater
-
-    when 'delete'
-      klass = RecordDeleter
-
-    else
-      return nil
-    end
+    klass = ACTIONS[@action_name]
+    return unless klass
 
     @action = klass.new(@table, @record_data)
   end
