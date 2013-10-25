@@ -21,7 +21,7 @@ class FormProcessor
 
   private
     def event_name
-      @event_data["data"]["name"].gsub(" ", "")
+      @event_data['data']['name'].gsub(' ', '')
     end
 
     def form_name
@@ -29,8 +29,8 @@ class FormProcessor
     end
 
     def columns
-      form_fields = @event_data["data"]["elements"]
-      FormFields.new(form_fields).fusion_column_schema
+      form_fields = @event_data['data']['elements']
+      FormFields.new(form_fields).fusion_columns_schema
     end
   end
 end
