@@ -41,7 +41,7 @@ private
 
   def convert_form_values(record)
     form_id = record['form_id']
-    form_columns = FormFields.get_form_columns form_id
+    form_columns = FormFields.get_key_name_mapping form_id
     return unless form_columns
 
     raw_record_data = record['form_values']

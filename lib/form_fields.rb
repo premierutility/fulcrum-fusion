@@ -2,6 +2,17 @@ require 'fulcrum'
 require_relative '../config.rb' if File.exists?('config.rb')
 
 class FormFields
+  def self.get_key_name_mapping(form_id)
+    configure_api
+
+    request = Fulcrum::Form.find(form_id)
+    return unless request && request['form']
+    elements = request['form']['elements']
+    {}.tap do |h|
+      elements.map {|e| h[e['key']] = e['label'] }
+    end
+  end
+
   def initalize(form_fields)
     @form_fields = form_fields
   end
@@ -27,17 +38,6 @@ class FormFields
       extract_column_info.
       sort_alphabetically.
       map_to_fusion_schema
-  end
-
-  def self.get_form_columns(form_id)
-    configure_api
-
-    request = Fulcrum::Form.find(form_id)
-    return unless request && request['form']
-    elements = request['form']['elements']
-    {}.tap do |h|
-      elements.map {|e| h[e['key']] = e['label'] }
-    end
   end
 
 private
