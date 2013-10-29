@@ -12,9 +12,14 @@ class Form
     request = Fulcrum::Form.find(form_id)
     return unless form_exists?(request)
 
-    elements = request['form']['elements']
-    {}.tap do |h|
-      elements.map {|e| h[e['key']] = e['label'] }
+    fields = request['form']['elements']
+    {}.tap do |key_name_mappings|
+      fields.each do |field|
+        key = field['key']
+        name = field['label']
+
+        key_name_mappings[key] = name
+      end
     end
   end
 
@@ -30,3 +35,4 @@ private
     request && request['form']
   end
 end
+
