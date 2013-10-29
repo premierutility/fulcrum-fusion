@@ -1,32 +1,10 @@
-require 'fulcrum'
-require_relative '../config.rb' if File.exists?('config.rb')
-
 class FormFields
-  def self.get_key_name_mapping(form_id)
-    configure_api
-
-    request = Fulcrum::Form.find(form_id)
-    return unless request && request['form']
-    elements = request['form']['elements']
-    {}.tap do |h|
-      elements.map {|e| h[e['key']] = e['label'] }
-    end
-  end
-
   def initialize(form_fields)
     @form_fields = form_fields
   end
 
   def fusion_columns_schema
     FusionColumnsSchema.new(@form_fields).schema
-  end
-
-private
-  def self.configure_api
-    Fulcrum::Api.configure do |config|
-      config.uri = ENV['FULCRUM_API_URL']
-      config.key = ENV['FULCRUM_API_KEY']
-    end
   end
 end
 
