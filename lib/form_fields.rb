@@ -38,12 +38,12 @@ class FusionColumnsSchema
       end
 
     class << @columns_schema
-      def remove_nils
+      def remove_nils!
         self.select!{|schema| !schema.nil? }
       end
     end
 
-    @columns_schema.remove_nils
+    @columns_schema.remove_nils!
   end
 
   def schema
