@@ -10,7 +10,8 @@ class Form
     configure_api
 
     request = Fulcrum::Form.find(form_id)
-    return unless request && request['form']
+    return unless form_exists?(request)
+
     elements = request['form']['elements']
     {}.tap do |h|
       elements.map {|e| h[e['key']] = e['label'] }
@@ -23,5 +24,9 @@ private
       config.uri = ENV['FULCRUM_API_URL']
       config.key = ENV['FULCRUM_API_KEY']
     end
+  end
+
+  def form_exists?(request)
+    request && request['form']
   end
 end
