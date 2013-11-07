@@ -13,7 +13,7 @@ describe Form do
       Fulcrum::Form.stub(:find).
         and_return(
           {
-            'form' => 
+            'form' =>
               {
                 'elements' =>
                   [
