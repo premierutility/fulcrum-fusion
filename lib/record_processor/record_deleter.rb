@@ -1,11 +1,13 @@
+require_relative '../status'
+
 class RecordProcessor
   class RecordDeleter < Base
     def process
       if row_id
         @table.delete(row_id)
-        204
+        Status::NO_CONTENT
       else
-        202
+        Status::ACCEPTED
       end
     end
   end

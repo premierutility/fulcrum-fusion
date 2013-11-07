@@ -178,3 +178,15 @@ Here's how things currently work:
   case. The data will still be available in JSON form in the  'form_fields'
   column.
 
+Development and Testing
+-----------------------
+
+To run all the tests for Fulcrum Fusion, simply run:
+
+`bundle exec guard`
+
+This will run all the RSpec tests.
+
+When you're doing development, guard will watch what files change and run the
+specs as needed.
+

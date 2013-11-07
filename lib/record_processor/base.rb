@@ -14,7 +14,10 @@ class RecordProcessor
     end
 
     def row
-      @table.select("ROWID", "WHERE id='#{@record_data.raw_format["id"]}'").first
+      @table.
+        select("ROWID",
+               "WHERE id='#{@record_data.raw_format["id"]}'").
+        first
     end
 
     def row_id
@@ -23,7 +26,8 @@ class RecordProcessor
 
   private
     def column_doesnt_exist_error?(e)
-      e.message.match(Regexp.new("The column doesn't exist"))
+      e.class == ArgumentError &&
+        e.message.match(Regexp.new("The column doesn't exist"))
     end
   end
 end

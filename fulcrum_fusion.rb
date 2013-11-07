@@ -1,5 +1,7 @@
 require 'sinatra'
 require 'json'
+require_relative 'lib/status'
+require_relative 'lib/event_data'
 require_relative 'lib/event_processor'
 require_relative 'config.rb' if File.exists?('config.rb')
 
@@ -10,8 +12,21 @@ get '/' do
 end
 
 post '/' do
-  event_data = JSON.parse(request.body.first)
+  request.body.rewind
+  post_body = request.body.read
 
-  EventProcessor.new(event_data).process
+  begin
+    event_data = EventData.new(post_body).read
+
+  rescue TypeError, EventData::BadDataError
+    return Status::BAD_REQUEST
+  end
+
+  begin
+    EventProcessor.new(event_data).process
+
+  rescue TypeError, ArgumentError
+    return Status::BAD_REQUEST
+  end
 end
 

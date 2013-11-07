@@ -1,5 +1,6 @@
 require_relative '../fulcrum_table'
 require_relative '../form_fields'
+require_relative '../status'
 
 class FormProcessor
   class FormCreator
@@ -12,10 +13,10 @@ class FormProcessor
       table = FulcrumTable.new(form_name).create_table(columns)
 
       if table
-        201 # Created
+        Status::CREATED
       else
         # Table already existed, so it wasn't created again.
-        202 # Accepted
+        Status::ACCEPTED
       end
     end
 

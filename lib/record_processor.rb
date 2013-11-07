@@ -4,19 +4,21 @@ require_relative 'record_processor/record_creator'
 require_relative 'record_processor/record_updater'
 require_relative 'record_processor/record_deleter'
 require_relative 'record_data'
+require_relative 'status'
 
 class RecordProcessor
   def initialize(action_name, event_data)
     @action_name = action_name
     @event_data  = event_data
+  end
+
+  def process
     @record_data = RecordData.new(@event_data['data'])
 
     id = FormUtils.id(@event_data['data']['form_id'])
     @table = FulcrumTable.new(id).table
-  end
 
-  def process
-    return 202 unless action
+    return Status::ACCEPTED unless action
 
     action.process
   end

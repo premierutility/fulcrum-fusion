@@ -2,6 +2,7 @@ require_relative 'form_processor/form_creator'
 require_relative 'form_processor/form_updater'
 require_relative 'form_processor/form_deleter'
 require_relative 'form_utils'
+require_relative 'status'
 
 class FormProcessor
   def initialize(action_name, event_data)
@@ -10,7 +11,7 @@ class FormProcessor
   end
 
   def process
-    return 202 unless action
+    return Status::ACCEPTED unless action
 
     action.process
   end

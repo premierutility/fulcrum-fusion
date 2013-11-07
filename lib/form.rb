@@ -9,7 +9,7 @@ class Form
   def field_key_name_mappings
     configure_api
 
-    request = Fulcrum::Form.find(form_id)
+    request = Fulcrum::Form.find(@form_id)
     return unless form_exists?(request)
 
     fields = request['form']['elements']

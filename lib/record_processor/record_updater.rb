@@ -4,14 +4,26 @@ class RecordProcessor
       if row_id
         begin
           @table.update(row_id, fusion_record)
-        rescue ArgumentError => e
+        rescue StandardError => e
           if column_doesnt_exist_error?(e)
-            @table.update(row_id, raw_record)
+            begin
+              @table.update(row_id, raw_record)
+
+            rescue StandardError
+              return Status::INTERNAL_ERROR
+
+            else
+              return Status::NO_CONTENT
+            end
           end
+          return Status::INTERNAL_ERROR
+
+        else
+          return Status::NO_CONTENT
         end
-        200
+
       else
-        204
+        return Status::ACCEPTED
       end
     end
   end

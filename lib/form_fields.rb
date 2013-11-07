@@ -10,21 +10,25 @@ end
 
 class FusionColumnsSchema
   def initialize(form_fields)
-    @columns_schema =
-      form_fields.map do |form_field|
-        FormField.new(form_field).schema
-      end
-
-    class << @columns_schema
-      def remove_nils!
-        self.select!{|schema| !schema.nil? }
-      end
-    end
-
-    @columns_schema.remove_nils!
+    @form_fields = form_fields
   end
 
   def schema
+    unless @columns_schema
+      @columns_schema =
+        @form_fields.flat_map do |form_field|
+          FormField.new(form_field).schema
+        end
+
+      class << @columns_schema
+        def remove_nils!
+          self.select!{|schema| !schema.nil? }
+        end
+      end
+
+      @columns_schema.remove_nils!
+    end
+
     @columns_schema
   end
 end
@@ -90,18 +94,32 @@ private
   end
 end
 
-class AddressField < TextField; end
-class ChoiceField < TextField; end
-class ClassificationField < TextField; end
-class DateTimeField < TextField; end
-class EnumerableField < TextField; end
 class Label < FieldBase
   def schema
   end
 end
+
+class ChoiceField < TextField; end
+class ClassificationField < TextField; end
 class PhotoField < TextField; end
-class Section < TextField; end
+class DateTimeField < TextField; end
+class AddressField < TextField; end
 class SignatureField < TextField; end
+class Section < FieldBase
+  def schema
+    return nil unless @form_field && @form_field['elements']
+
+    section_name = @form_field['label']
+    section_elements = @form_field['elements']
+
+    temp_schema =
+      FormFields.new(section_elements).fusion_columns_schema
+
+    temp_schema.each do |column_schema|
+      column_schema[:name] = "#{section_name} - #{column_schema[:name]}"
+    end
+  end
+end
 
 class FieldTyper
   def initialize(form_field)
@@ -109,32 +127,32 @@ class FieldTyper
   end
 
   def type
-    type = FIELD_TYPES[@form_field['type']]
+    type_text = @form_field['type']
 
-    if numeric_field?(type)
-      type = numeric_field
+    if numeric_field?(type_text)
+      numeric_field
+    else
+      FIELD_TYPES[type_text]
     end
-    type
   end
 
 private
   FIELD_TYPES =
     {
-      'AddressField' => AddressField,
-      'ChoiceField'  => ChoiceField,
+      'AddressField'        => AddressField,
+      'ChoiceField'         => ChoiceField,
       'ClassificationField' => ClassificationField,
-      'DateTimeField' => DateTimeField,
-      'EnumerableField' => EnumerableField,
-      'Label' => Label,
-      'PhotoField' => PhotoField,
-      'Section' => Section,
-      'SignatureField' => SignatureField,
-      'TextField' => TextField,
-      'NumericField' => NumericField
+      'DateTimeField'       => DateTimeField,
+      'Label'               => Label,
+      'PhotoField'          => PhotoField,
+      'Section'             => Section,
+      'SignatureField'      => SignatureField,
+      'TextField'           => TextField,
+      'NumericField'        => NumericField
     }.freeze
 
-  def numeric_field?(type)
-    type == TextField && @form_field['numeric']
+  def numeric_field?(type_text)
+    type_text == 'TextField' && @form_field['numeric']
   end
 
   def numeric_field
