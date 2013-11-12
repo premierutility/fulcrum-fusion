@@ -1,9 +1,3 @@
-require 'active_support/core_ext'
-
-guard 'guard' do
-  watch('Guardfile')
-end
-
 guard 'rspec', :wait => 60, :all_after_pass => false do
   watch('spec/spec_helper.rb')          { "spec" }
   watch(%r{^spec/support/**/(.+)\.rb$}) { "spec" }
