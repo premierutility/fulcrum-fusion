@@ -1,1 +1,1 @@
-web: ruby fulcrum_fusion.rb
+web: bundle exec rackup config.ru -p $PORT
