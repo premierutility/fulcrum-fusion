@@ -7,6 +7,7 @@ gem 'fulcrum',       '~> 0.1.5'
 
 group :development, :test do
   gem 'guard',         '~> 2.2.3'
+  gem 'guard-bundler', '~> 2.0.0'
   gem 'guard-rspec',   '~> 4.0.4'
 end
 

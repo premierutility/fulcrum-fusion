@@ -1,4 +1,8 @@
 guard 'rspec', :wait => 60, :all_after_pass => false do
+guard :bundler do
+  watch('Gemfile')
+end
+
   watch('spec/spec_helper.rb')          { "spec" }
   watch(%r{^spec/support/**/(.+)\.rb$}) { "spec" }
   watch('fulcrum_fusion.rb')            { "spec" }
