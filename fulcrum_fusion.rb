@@ -5,7 +5,7 @@ class FulcrumFusion < Sinatra::Base
   require_relative 'lib/status'
   require_relative 'lib/event_data'
   require_relative 'lib/event_processor'
-  require_relative 'config.rb' if File.exists?('config.rb')
+  require_relative 'config/env_vars.rb' if File.exists?('config/env_vars.rb')
 
   #TODO: Remove this here and use rackup -p 3002
   set :port, ENV['PORT'] if ENV['PORT']  # Configure sinatra

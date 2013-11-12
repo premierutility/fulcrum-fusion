@@ -116,7 +116,7 @@ bundle install
 #### Configure
 
 ```
-cp config.rb.sample config.rb
+cp config/env_vars.rb.sample config/env_vars.rb
 ```
 
 Use the configuration values from above to fill in `config.rb`.
