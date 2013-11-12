@@ -7,9 +7,6 @@ class FulcrumFusion < Sinatra::Base
   require_relative 'lib/event_processor'
   require_relative 'config/env_vars.rb' if File.exists?('config/env_vars.rb')
 
-  #TODO: Remove this here and use rackup -p 3002
-  set :port, ENV['PORT'] if ENV['PORT']  # Configure sinatra
-
   get '/' do
     "Fulcrum Fusion is running"
   end
