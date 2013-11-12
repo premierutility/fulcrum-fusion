@@ -1,4 +1,4 @@
-require_relative 'config/boot.rb'
+require './config/boot'
 
 require './fulcrum_fusion'
 run FulcrumFusion
