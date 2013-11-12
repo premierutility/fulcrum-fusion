@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby   '2.0.0'
 
 gem 'sinatra'
-gem 'fusion_tables'
+gem 'fusion_tables', github: 'kyletolle/fusion_tables', branch: 'escape-single-quotes-in-column-names'
 gem 'fulcrum'
 
 group :development, :test do
