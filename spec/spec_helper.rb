@@ -5,7 +5,8 @@ require 'rubygems'
 require 'simplecov'
 SimpleCov.start do
   add_filter '/spec/'
-  add_filter 'config.rb'
+  add_filter '/config/env_vars.rb'
+  add_filter '/coverage/'
 end
 
 ENV['RACK_ENV'] = 'test'
