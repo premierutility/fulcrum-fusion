@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.configure{|c| c.include SharedContexts::StubServicesSharedContext }
 RSpec.configure{|c| c.include Helpers::StubServicesHelper }
 
-describe "Fulcrum Fusion Service" do
+describe FulcrumFusion do
   describe "GET /" do
     it "shows it's running" do
       get '/'

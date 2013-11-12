@@ -8,7 +8,10 @@ SimpleCov.start do
   add_filter 'config.rb'
 end
 
-require 'sinatra'
+ENV['RACK_ENV'] = 'test'
+require_relative '../config/boot.rb'
+
+require 'sinatra/base'
 require 'rspec'
 require 'rack/test'
 
@@ -22,9 +25,6 @@ end
 
 require_files
 
-ENV['RACK_ENV'] = 'test'
-
-
 # Set up the test env
 set :environment, :test
 set :run, false
@@ -32,7 +32,7 @@ set :raise_errors, true
 set :logging, false
 
 def app
-  @app ||= Sinatra::Application
+  @app ||= FulcrumFusion
 end
 
 RSpec.configure do |config|
