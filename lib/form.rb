@@ -7,12 +7,9 @@ class Form
   end
 
   def field_key_name_mappings
-    configure_api
+    return unless form_exists?
 
-    request = Fulcrum::Form.find(@form_id)
-    return unless form_exists?(request)
-
-    fields = request['form']['elements']
+    fields = form_request['form']['elements']
     {}.tap do |key_name_mappings|
       fields.each do |field|
         key = field['key']
@@ -24,6 +21,16 @@ class Form
   end
 
 private
+  def form_request
+    unless @form_request
+      configure_api
+
+      @form_request = Fulcrum::Form.find(@form_id)
+    end
+
+    @form_request
+  end
+
   def configure_api
     Fulcrum::Api.configure do |config|
       config.uri = ENV['FULCRUM_API_URL']
@@ -31,8 +38,8 @@ private
     end
   end
 
-  def form_exists?(request)
-    request && request['form']
+  def form_exists?
+    form_request && form_request['form']
   end
 end
 
