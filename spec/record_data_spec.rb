@@ -7,66 +7,33 @@ describe RecordData do
   include_context "event data"
 
   let(:expected_raw_format) do
-    {
-      'status' => nil,
-      'version' => 1,
-      'id' => '7553fd44-78bb',
-      'form_id' => '295eda4a-7795',
-      'project_id' => nil,
-      'created_at' => '2013-09-21T19:20:16Z',
-      'updated_at' => '2013-09-21T19:20:16Z',
-      'client_created_at' => '2013-09-21T19:20:16Z',
-      'client_updated_at' => '2013-09-21T19:20:16Z',
-      'created_by' => 'dev Test',
-      'created_by_id' => '960247b1',
-      'updated_by' => 'dev Test',
-      'updated_by_id' => '960247b1',
-      'assigned_to' => nil,
-      'assigned_to_id' => nil,
-      'form_values' => '{"94f8":"Fake Record"}',
-      'location' => '38.8968321491252,-104.831140637398',
-      'altitude' => nil,
-      'speed' => nil,
-      'course' => nil,
-      'horizontal_accuracy' => nil,
-      'vertical_accuracy' => nil
-    }
-  end
+    record_data.dup.tap do |h|
+      # Lat,long is turned into a location
+      h.delete('latitude')
+      h.delete('longitude')
+      h['location'] = '38.8968321491252,-104.831140637398'
 
-  let(:expected_fusion_format) do
-    {
-      'Name' => 'Fake Record',
-      'status' => nil,
-      'version' => 1,
-      'id' => '7553fd44-78bb',
-      'form_id' => '295eda4a-7795',
-      'project_id' => nil,
-      'created_at' => '2013-09-21T19:20:16Z',
-      'updated_at' => '2013-09-21T19:20:16Z',
-      'client_created_at' => '2013-09-21T19:20:16Z',
-      'client_updated_at' => '2013-09-21T19:20:16Z',
-      'created_by' => 'dev Test',
-      'created_by_id' => '960247b1',
-      'updated_by' => 'dev Test',
-      'updated_by_id' => '960247b1',
-      'assigned_to' => nil,
-      'assigned_to_id' => nil,
-      'form_values' => '{"94f8":"Fake Record"}',
-      'location' => '38.8968321491252,-104.831140637398',
-      'altitude' => nil,
-      'speed' => nil,
-      'course' => nil,
-      'horizontal_accuracy' => nil,
-      'vertical_accuracy' => nil
-    }
+      # keys are sanitized
+      h.delete('extra_hash_key')
+
+      # Form values is turned into JSON
+      h['form_values'] = '{"94f8":"Fake Record"}'
+    end
   end
 
   describe "#fusion_format" do
-    it "converts the data properly" do
-      Form.any_instance.stub(:field_key_name_mappings).
-        and_return({'94f8' => 'Name'})
-      actual_fusion_format = RecordData.new(record_data).fusion_format
-      actual_fusion_format.should == expected_fusion_format
+    describe "with a text field" do
+      let(:expected_fusion_format_with_text_field) do
+        { 'Name' => 'Fake Record' }.
+          merge(expected_raw_format)
+      end
+
+      it "converts the data properly" do
+        Form.any_instance.stub(:field_key_name_mappings).
+          and_return({'94f8' => 'Name'})
+        actual_fusion_format = RecordData.new(record_data).fusion_format
+        actual_fusion_format.should == expected_fusion_format_with_text_field
+      end
     end
   end
 
