@@ -4,8 +4,8 @@ require_relative 'record_column_sanitizer'
 require 'json'
 
 class RecordData
-  def initialize(event_data)
-    @record = event_data
+  def initialize(record_hash)
+    @record_hash = record_hash
   end
 
   def fusion_format
@@ -28,7 +28,7 @@ class RecordData
 private
 
   def to_raw_format
-    @raw = @record
+    @raw = @record_hash
     convert_location
     sanitize_columns
     jsonify_form_values
