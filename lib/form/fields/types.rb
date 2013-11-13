@@ -9,27 +9,29 @@ require_relative '../../form_fields/signature_field'
 require_relative '../../form_fields/text_field'
 require_relative '../../form_fields/numeric_field'
 
-class Fields
-  class Types
-    class << self
-      def [](val)
-        TYPES[val]
+class Form
+  class Fields
+    class Types
+      class << self
+        def [](val)
+          TYPES[val]
+        end
       end
+
+    private
+      TYPES =
+        {
+          'AddressField'        => ::AddressField,
+          'ChoiceField'         => ::ChoiceField,
+          'ClassificationField' => ::ClassificationField,
+          'DateTimeField'       => ::DateTimeField,
+          'Label'               => ::Label,
+          'PhotoField'          => ::PhotoField,
+          'Section'             => ::Section,
+          'SignatureField'      => ::SignatureField,
+          'TextField'           => ::TextField,
+          'NumericField'        => ::NumericField
+        }.freeze
     end
   end
-
-private
-  TYPES =
-    {
-      'AddressField'        => ::AddressField,
-      'ChoiceField'         => ::ChoiceField,
-      'ClassificationField' => ::ClassificationField,
-      'DateTimeField'       => ::DateTimeField,
-      'Label'               => ::Label,
-      'PhotoField'          => ::PhotoField,
-      'Section'             => ::Section,
-      'SignatureField'      => ::SignatureField,
-      'TextField'           => ::TextField,
-      'NumericField'        => ::NumericField
-    }.freeze
 end
