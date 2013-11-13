@@ -14,9 +14,10 @@ class RecordProcessor
     end
 
     def row
+      record_id = @record_data.raw_format['id']
       @table.
         select("ROWID",
-               "WHERE id='#{@record_data.raw_format["id"]}'").
+               "WHERE id='#{record_id}'").
         first
     end
 
