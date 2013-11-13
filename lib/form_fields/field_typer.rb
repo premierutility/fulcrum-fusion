@@ -1,3 +1,4 @@
+require_relative '../form/fields/types'
 require_relative 'address_field'
 require_relative 'choice_field'
 require_relative 'classification_field'
@@ -20,31 +21,16 @@ class FieldTyper
     if numeric_field?(type_text)
       numeric_field
     else
-      FIELD_TYPES[type_text]
+      Form::Fields::Types[type_text]
     end
   end
 
 private
-  FIELD_TYPES =
-    {
-      'AddressField'        => AddressField,
-      'ChoiceField'         => ChoiceField,
-      'ClassificationField' => ClassificationField,
-      'DateTimeField'       => DateTimeField,
-      'Label'               => Label,
-      'PhotoField'          => PhotoField,
-      'Section'             => Section,
-      'SignatureField'      => SignatureField,
-      'TextField'           => TextField,
-      'NumericField'        => NumericField
-    }.freeze
-
   def numeric_field?(type_text)
     type_text == 'TextField' && @form_field['numeric']
   end
 
   def numeric_field
-    FIELD_TYPES['NumericField']
+    Form::Fields::Types['NumericField']
   end
 end
-
