@@ -1,14 +1,4 @@
 require_relative '../form/fields/types'
-require_relative 'address_field'
-require_relative 'choice_field'
-require_relative 'classification_field'
-require_relative 'datetime_field'
-require_relative 'label'
-require_relative 'photo_field'
-require_relative 'section'
-require_relative 'signature_field'
-require_relative 'text_field'
-require_relative 'numeric_field'
 
 class FieldTyper
   def initialize(form_field)
