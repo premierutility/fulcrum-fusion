@@ -6,7 +6,7 @@ require_relative 'schemas/label'
 require_relative 'schemas/photo_field'
 require_relative 'schemas/section'
 require_relative 'schemas/signature_field'
-require_relative '../../form_fields/text_field'
+require_relative 'schemas/text_field'
 require_relative 'schemas/numeric_field'
 
 class Form
@@ -29,7 +29,7 @@ class Form
           'PhotoField'          => Schemas::PhotoField,
           'Section'             => Schemas::Section,
           'SignatureField'      => Schemas::SignatureField,
-          'TextField'           => ::TextField,
+          'TextField'           => Schemas::TextField,
           'NumericField'        => Schemas::NumericField
         }.freeze
     end
