@@ -4,7 +4,7 @@ require_relative 'schemas/classification_field'
 require_relative 'schemas/datetime_field'
 require_relative 'schemas/label'
 require_relative 'schemas/photo_field'
-require_relative '../../form_fields/section'
+require_relative 'schemas/section'
 require_relative '../../form_fields/signature_field'
 require_relative '../../form_fields/text_field'
 require_relative '../../form_fields/numeric_field'
@@ -27,7 +27,7 @@ class Form
           'DateTimeField'       => Schemas::DateTimeField,
           'Label'               => Schemas::Label,
           'PhotoField'          => Schemas::PhotoField,
-          'Section'             => ::Section,
+          'Section'             => Schemas::Section,
           'SignatureField'      => ::SignatureField,
           'TextField'           => ::TextField,
           'NumericField'        => ::NumericField
