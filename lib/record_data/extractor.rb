@@ -3,11 +3,11 @@ require_relative 'extractors/address_field'
 require_relative 'extractors/choice_field'
 require_relative 'extractors/classification_field'
 require_relative 'extractors/date_time_field'
+require_relative 'extractors/photo_field'
 require 'json'
 
 class RecordData
   module Extractors
-    class PhotoField; end
     class Section; end
     class SignatureField; end
     class TextField
