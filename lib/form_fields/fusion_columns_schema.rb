@@ -1,4 +1,4 @@
-require_relative 'form_field'
+require_relative '../form/fields/field'
 
 class FusionColumnsSchema
   def initialize(form_fields)
@@ -9,7 +9,7 @@ class FusionColumnsSchema
     unless @columns_schema
       @columns_schema =
         @form_fields.flat_map do |form_field|
-          FormField.new(form_field).schema
+          Form::Fields::Field.new(form_field).schema
         end
 
       class << @columns_schema
