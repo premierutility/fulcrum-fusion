@@ -7,13 +7,10 @@ require_relative 'extractors/photo_field'
 require_relative 'extractors/section'
 require_relative 'extractors/signature_field'
 require_relative 'extractors/text_field'
+require_relative 'extractors/numeric_field'
 require 'json'
 
 class RecordData
-  module Extractors
-    class NumericField < TextField; end
-  end
-
   class ExtractorForField
     def initialize(field_type, numeric)
       @field_type = field_type
