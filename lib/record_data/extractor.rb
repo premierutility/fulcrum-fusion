@@ -4,11 +4,11 @@ require_relative 'extractors/choice_field'
 require_relative 'extractors/classification_field'
 require_relative 'extractors/date_time_field'
 require_relative 'extractors/photo_field'
+require_relative 'extractors/section'
 require 'json'
 
 class RecordData
   module Extractors
-    class Section; end
     class SignatureField; end
     class TextField
       def initialize(field_value)
