@@ -20,7 +20,7 @@ class RecordData
         @field_value
       end
     end
-    class NumericField; end
+    class NumericField < TextField; end
   end
 
   class Extractor

@@ -66,7 +66,7 @@ describe RecordData do
 
     describe "with a numeric field" do
       let(:expected_fusion_format) do
-        { 'Number' => 100 }.
+        { 'Number' => "100" }.
           merge(expected_raw_format).
           merge({'form_values' => "{\"94f8\":\"100\"}"})
       end
