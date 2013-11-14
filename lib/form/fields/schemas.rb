@@ -1,4 +1,4 @@
-require_relative '../../form_fields/address_field'
+require_relative 'schemas/address_field'
 require_relative '../../form_fields/choice_field'
 require_relative '../../form_fields/classification_field'
 require_relative '../../form_fields/datetime_field'
@@ -11,17 +11,17 @@ require_relative '../../form_fields/numeric_field'
 
 class Form
   class Fields
-    class Types
+    class Schemas
       class << self
         def [](val)
-          TYPES[val]
+          SCHEMAS[val]
         end
       end
 
     private
-      TYPES =
+      SCHEMAS =
         {
-          'AddressField'        => ::AddressField,
+          'AddressField'        => Schemas::AddressField,
           'ChoiceField'         => ::ChoiceField,
           'ClassificationField' => ::ClassificationField,
           'DateTimeField'       => ::DateTimeField,
@@ -35,3 +35,4 @@ class Form
     end
   end
 end
+

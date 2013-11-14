@@ -1,4 +1,4 @@
-require_relative '../form/fields/types'
+require_relative '../form/fields/schemas'
 
 class FieldTyper
   def initialize(form_field)
@@ -11,7 +11,7 @@ class FieldTyper
     if numeric_field?(type_text)
       numeric_field
     else
-      Form::Fields::Types[type_text]
+      Form::Fields::Schemas[type_text]
     end
   end
 
@@ -21,6 +21,7 @@ private
   end
 
   def numeric_field
-    Form::Fields::Types['NumericField']
+    Form::Fields::Schemas['NumericField']
   end
 end
+
