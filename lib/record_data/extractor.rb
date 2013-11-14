@@ -2,11 +2,11 @@ require_relative '../form'
 require_relative 'extractors/address_field'
 require_relative 'extractors/choice_field'
 require_relative 'extractors/classification_field'
+require_relative 'extractors/date_time_field'
 require 'json'
 
 class RecordData
   module Extractors
-    class DateTimeField; end
     class Label; end
     class PhotoField; end
     class Section; end
