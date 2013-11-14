@@ -1,4 +1,4 @@
-require_relative '../form/fields/typer'
+require_relative '../form/fields/schema_for_type'
 
 class FormField
   def initialize(form_field)
@@ -16,15 +16,15 @@ class FormField
 private
 
   def process
-    klass = field_type
+    klass = schema_type
     return unless klass
 
     field = klass.new(@form_field)
     @schema = field.schema
   end
 
-  def field_type
-    Form::Fields::Typer.new(@form_field).type
+  def schema_type
+    Form::Fields::SchemaForType.new(@form_field).schema_class
   end
 end
 

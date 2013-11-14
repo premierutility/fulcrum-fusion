@@ -2,12 +2,12 @@ require_relative 'schemas'
 
 class Form
   class Fields
-    class Typer
+    class SchemaForType
       def initialize(form_field)
         @form_field = form_field
       end
 
-      def type
+      def schema_class
         type_text = @form_field['type']
 
         if numeric_field?(type_text)
