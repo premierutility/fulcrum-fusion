@@ -1,5 +1,5 @@
 require_relative 'schemas/address_field'
-require_relative '../../form_fields/choice_field'
+require_relative 'schemas/choice_field'
 require_relative '../../form_fields/classification_field'
 require_relative '../../form_fields/datetime_field'
 require_relative '../../form_fields/label'
@@ -22,7 +22,7 @@ class Form
       SCHEMAS =
         {
           'AddressField'        => Schemas::AddressField,
-          'ChoiceField'         => ::ChoiceField,
+          'ChoiceField'         => Schemas::ChoiceField,
           'ClassificationField' => ::ClassificationField,
           'DateTimeField'       => ::DateTimeField,
           'Label'               => ::Label,
