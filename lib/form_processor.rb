@@ -1,7 +1,7 @@
 require_relative 'form_processor/form_creator'
 require_relative 'form_processor/form_updater'
 require_relative 'form_processor/form_deleter'
-require_relative 'form_utils'
+require_relative 'form_processor/utils'
 require_relative 'status'
 
 class FormProcessor
@@ -38,7 +38,7 @@ private
   end
 
   def form_id
-    FormUtils.id(@event_data['data']['id'])
+    FormProcessor::Utils.id(@event_data['data']['id'])
   end
 end
 
