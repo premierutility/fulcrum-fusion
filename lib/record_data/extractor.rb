@@ -1,9 +1,9 @@
 require_relative '../form'
+require_relative 'extractors/address_field'
 require 'json'
 
 class RecordData
   module Extractors
-    class AddressField; end
     class ChoiceField; end
     class ClassificationField; end
     class DateTimeField; end
