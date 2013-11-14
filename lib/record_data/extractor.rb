@@ -7,7 +7,6 @@ require 'json'
 
 class RecordData
   module Extractors
-    class Label; end
     class PhotoField; end
     class Section; end
     class SignatureField; end
@@ -49,7 +48,6 @@ class RecordData
         'ChoiceField'         => RecordData::Extractors::ChoiceField,
         'ClassificationField' => RecordData::Extractors::ClassificationField,
         'DateTimeField'       => RecordData::Extractors::DateTimeField,
-        'Label'               => RecordData::Extractors::Label,
         'PhotoField'          => RecordData::Extractors::PhotoField,
         'Section'             => RecordData::Extractors::Section,
         'SignatureField'      => RecordData::Extractors::SignatureField,
