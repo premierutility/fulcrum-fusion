@@ -1,5 +1,5 @@
 require_relative '../fulcrum_table'
-require_relative '../form_fields'
+require_relative '../form/fields'
 require_relative '../status'
 
 class FormProcessor
@@ -31,7 +31,7 @@ class FormProcessor
 
     def columns
       form_fields = @event_data['data']['elements']
-      FormFields.new(form_fields).fusion_columns_schema
+      Form::Fields.new(form_fields).fusion_columns_schema
     end
   end
 end

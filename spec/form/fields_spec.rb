@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FormFields do
+describe Form::Fields do
 
   subject { described_class.new(@field_data) }
 

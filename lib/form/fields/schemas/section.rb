@@ -11,7 +11,7 @@ class Form
           section_elements = @form_field['elements']
 
           temp_schema =
-            FormFields.new(section_elements).fusion_columns_schema
+            Form::Fields.new(section_elements).fusion_columns_schema
 
           temp_schema.each do |column_schema|
             column_schema[:name] = "#{section_name} - #{column_schema[:name]}"
