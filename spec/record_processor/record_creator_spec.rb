@@ -9,6 +9,8 @@ describe RecordProcessor::RecordCreator do
     describe "with a brand new record" do
       include_context "new record"
 
+      include_context "stub fulcrum with form"
+
       describe "with no errors" do
         it "creates the record" do
           GData::Client::FusionTables.any_instance.stub(:insert)
@@ -35,8 +37,6 @@ describe RecordProcessor::RecordCreator do
 
         describe "where it can't insert the fusion format" do
           it "inserts the raw format" do
-            Fulcrum::Form.stub(:find).
-              and_return({'form'=>{'elements'=>[{'key'=>'94f8','label'=>'name'},{'key'=>'876d','label'=>'fake'}]}})
             @times_called = 0
             GData::Client::FusionTables.any_instance.stub(:insert) do
               if @times_called == 0

@@ -16,6 +16,13 @@ module SharedContexts
       end
     end
 
+    shared_context "stub fulcrum with form" do
+      before :each do
+        Fulcrum::Form.stub(:find).
+          and_return({'form'=>{'elements'=>[{'key'=>'94f8','label'=>'name', 'type' => 'TextField'},{'key'=>'876d','label'=>'fake', 'type' => 'TextField'}]}})
+      end
+    end
+
     shared_context "stub objects" do
       let(:stub_record) { Object.new }
 

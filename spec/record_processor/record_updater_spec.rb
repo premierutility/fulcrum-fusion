@@ -1,11 +1,15 @@
 require 'spec_helper'
 
+RSpec.configure{|c| c.include SharedContexts::RecordProcessorSharedContext}
+
 describe RecordProcessor::RecordUpdater do
   describe "#process" do
     include_context "record event data"
 
     describe "for an existing row" do
       include_context "existing record"
+
+      include_context "stub fulcrum with form"
 
       before :each do
         @table = GData::Client::FusionTables.new
