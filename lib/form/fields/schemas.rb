@@ -1,7 +1,7 @@
 require_relative 'schemas/address_field'
 require_relative 'schemas/choice_field'
 require_relative 'schemas/classification_field'
-require_relative '../../form_fields/datetime_field'
+require_relative 'schemas/datetime_field'
 require_relative '../../form_fields/label'
 require_relative '../../form_fields/photo_field'
 require_relative '../../form_fields/section'
@@ -24,7 +24,7 @@ class Form
           'AddressField'        => Schemas::AddressField,
           'ChoiceField'         => Schemas::ChoiceField,
           'ClassificationField' => Schemas::ClassificationField,
-          'DateTimeField'       => ::DateTimeField,
+          'DateTimeField'       => Schemas::DateTimeField,
           'Label'               => ::Label,
           'PhotoField'          => ::PhotoField,
           'Section'             => ::Section,
