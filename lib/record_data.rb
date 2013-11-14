@@ -50,19 +50,32 @@ private
     @raw['form_values'] = @raw['form_values'].to_json
   end
 
+  def form_columns
+    unless @form_columns
+      form_id = @fusion['form_id']
+      @form_columns = Form.new(form_id).field_key_name_mappings
+    end
+
+    @form_columns
+  end
+
+  def form_values_hash
+    unless @form_values_hash
+      @form_values_hash = JSON.parse(@fusion['form_values'])
+    end
+
+    @form_values_hash
+  end
+
   def  add_form_fields_as_keys
-    form_id = @fusion['form_id']
-    form_columns = Form.new(form_id).field_key_name_mappings
     return unless form_columns
 
-    raw_record_data = JSON.parse(@fusion['form_values'])
-    mapped_form_values = map_record_data(form_columns, raw_record_data)
     @fusion = mapped_form_values.merge(@fusion)
   end
 
-  def map_record_data(form_columns, raw_record_data)
+  def mapped_form_values
     {}.tap do |h|
-      raw_record_data.map do |column_id, value|
+      form_values_hash.map do |column_id, value|
         column_name = form_columns[column_id]
         h[column_name] = value
       end
