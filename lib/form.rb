@@ -6,18 +6,11 @@ class Form
     @form_id = form_id
   end
 
-  def field_key_name_mappings
+  def find_field_by_key(field_key)
     return unless form_exists?
 
-    fields = form_request['form']['elements']
-    {}.tap do |key_name_mappings|
-      fields.each do |field|
-        key = field['key']
-        name = field['label']
-
-        key_name_mappings[key] = name
-      end
-    end
+    form_elements = form_request['form']['elements']
+    field_for_key = form_elements.select{|e| e['key'] == field_key}.first
   end
 
 private

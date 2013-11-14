@@ -1,30 +1,49 @@
 require 'spec_helper'
 
 describe Form do
-  describe "#field_key_name_mappings" do
-    subject { described_class.new('fakeid').field_key_name_mappings }
+  describe "#fiend_field_by_key" do
+    subject { described_class.new('fakeid').find_field_by_key('94f8') }
 
     it "returns nothing if it can't find the form" do
       Fulcrum::Form.stub(:find)
       subject.should be_nil
     end
 
-    it "returns the mappings if the form exists" do
-      Fulcrum::Form.stub(:find).
-        and_return(
-          {
-            'form' =>
-              {
-                'elements' =>
-                  [
-                    { 'key' => 'abcd', 'label' => 'one' },
-                    { 'key' => 'cdef', 'label' => 'two' }
-                  ]
-              }
-          }
-        )
+    it "returns the field data if the form and field exists" do
+      expected_field =
+        {
+          'key'   => '94f8',
+          'label' => 'Name',
+          'type'  => 'TextField'
+        }
+      Fulcrum::Form.stub(:find).and_return(
+        {
+          'form' =>
+            {
+              'elements' =>
+                [ expected_field ]
+            }
+        }
+      )
+      subject.should == expected_field
+    end
 
-      subject.should == {'abcd' => 'one', 'cdef' => 'two' }
+    it "returns the nil if the form and field exists" do
+      field =
+        {
+          'key'   => 'other',
+          'label' => 'Other',
+          'type'  => 'TextField'
+        }
+      Fulcrum::Form.stub(:find).and_return(
+        {
+          'form' =>
+            {
+              'elements' => [ field ]
+            }
+        }
+      )
+      subject.should be_nil
     end
   end
 end
