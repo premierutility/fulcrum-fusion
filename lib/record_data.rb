@@ -1,5 +1,6 @@
 require_relative 'form'
 require_relative 'record_column_sanitizer'
+require_relative 'record_data/extractor'
 
 class RecordData
   def initialize(record_hash)
