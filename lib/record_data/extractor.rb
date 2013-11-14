@@ -5,11 +5,11 @@ require_relative 'extractors/classification_field'
 require_relative 'extractors/date_time_field'
 require_relative 'extractors/photo_field'
 require_relative 'extractors/section'
+require_relative 'extractors/signature_field'
 require 'json'
 
 class RecordData
   module Extractors
-    class SignatureField; end
     class TextField
       def initialize(field_value)
         @field_value = field_value
