@@ -1,9 +1,9 @@
-require_relative '../../../form_fields/field_base'
+require_relative 'base'
 
 class Form
   class Fields
     class Schemas
-      class NumericField < FieldBase
+      class NumericField < Base
       private
         def type
           DATA_TYPES[:number]
