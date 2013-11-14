@@ -1,7 +1,5 @@
-require_relative 'form_fields'
 require_relative 'form'
 require_relative 'record_column_sanitizer'
-require 'json'
 
 class RecordData
   def initialize(record_hash)
@@ -11,7 +9,7 @@ class RecordData
   def fusion_format
     unless @fusion
       @fusion = raw_format
-      add_form_fields_as_keys
+      add_record_values_to_top_level
     end
 
     @fusion
@@ -50,36 +48,73 @@ private
     @raw['form_values'] = @raw['form_values'].to_json
   end
 
-  def form_columns
-    unless @form_columns
-      form_id = @fusion['form_id']
-      @form_columns = Form.new(form_id).field_key_name_mappings
-    end
+  def add_record_values_to_top_level
+    record_values = RecordData::Extractor.new(@fusion).extract
+    @fusion = record_values.merge(@fusion)
 
-    @form_columns
+    # Get form fields
+    # For each form_values
+    #   call a form_values_converter
+    #     Get the form field's type.
+    #     Call a subclass to convert the data based on this type
+    #
+    # Take
+    #
+    # So the record data comes in like this
+    # {
+    #   id: ...
+    #   form_id: ...
+    #   created_at: ...
+    #   form_values: {
+    #     3425: hi there
+    #     8d38: how's it going?
+    #   }
+    # }
+    #
+    # and leaves like this:
+    #
+    # {
+    #   short message: hi there
+    #   long message : how's it going?
+    #   id: ...
+    #   created_at: ...
+    #   form_values: {
+    #     3425: hi there
+    #     8d38: how's it going?
+    #   }
+    # }
   end
 
-  def form_values_hash
-    unless @form_values_hash
-      @form_values_hash = JSON.parse(@fusion['form_values'])
-    end
+  # TODO: REMOVE THIS!!
+  # def form_columns
+  #   unless @form_columns
+  #     form_id = @fusion['form_id']
+  #     @form_columns = Form.new(form_id).field_key_name_mappings
+  #   end
 
-    @form_values_hash
-  end
+  #   @form_columns
+  # end
 
-  def  add_form_fields_as_keys
-    return unless form_columns
+  # def form_values_hash
+  #   unless @form_values_hash
+  #     @form_values_hash = JSON.parse(@fusion['form_values'])
+  #   end
 
-    @fusion = mapped_form_values.merge(@fusion)
-  end
+  #   @form_values_hash
+  # end
+  # def  add_form_fields_as_keys
+  #   return unless form_columns
 
-  def mapped_form_values
-    {}.tap do |h|
-      form_values_hash.map do |column_id, value|
-        column_name = form_columns[column_id]
-        h[column_name] = value
-      end
-    end
-  end
+  #   @fusion = mapped_form_values.merge(@fusion)
+  # end
+
+  # def mapped_form_values
+  #   {}.tap do |h|
+  #     form_values_hash.map do |column_id, value|
+  #       column_name = form_columns[column_id]
+  #       h[column_name] = value
+  #     end
+  #   end
+  # end
 end
 
