@@ -1,6 +1,6 @@
 class RecordData
   module Extractors
-    class AddressField
+    class ChoiceField
     end
   end
 end
