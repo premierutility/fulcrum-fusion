@@ -1,4 +1,4 @@
-require_relative 'field_typer'
+require_relative '../form/fields/typer'
 
 class FormField
   def initialize(form_field)
@@ -24,7 +24,7 @@ private
   end
 
   def field_type
-    FieldTyper.new(@form_field).type
+    Form::Fields::Typer.new(@form_field).type
   end
 end
 
