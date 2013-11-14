@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FormUtils do
+describe FormProcessor::Utils do
   describe "::id" do
     it "should remove dashes" do
       string_with_dashes = "this-string-has-dashes"

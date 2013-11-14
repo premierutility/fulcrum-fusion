@@ -12,7 +12,7 @@ describe RecordProcessor do
     let(:processor) { RecordProcessor.new(@action.to_s, record_event_data) }
 
     before :each do
-      FormUtils.stub(:id).and_return('fakeid')
+      FormProcessor::Utils.stub(:id).and_return('fakeid')
     end
 
     describe "with a table that exists" do

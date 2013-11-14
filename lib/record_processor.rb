@@ -1,4 +1,5 @@
 require_relative 'fulcrum_table'
+require_relative 'form_processor/utils'
 require_relative 'record_processor/base'
 require_relative 'record_processor/record_creator'
 require_relative 'record_processor/record_updater'
@@ -15,7 +16,7 @@ class RecordProcessor
   def process
     @record_data = RecordData.new(@event_data['data'])
 
-    id = FormUtils.id(@event_data['data']['form_id'])
+    id = FormProcessor::Utils.id(@event_data['data']['form_id'])
     @table = FulcrumTable.new(id).table
 
     return Status::ACCEPTED unless action
