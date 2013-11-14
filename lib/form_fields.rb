@@ -1,4 +1,4 @@
-require_relative 'form_fields/fusion_columns_schema'
+require_relative 'form/fields/fusion_columns_schema'
 
 class FormFields
   def initialize(form_fields)
@@ -6,7 +6,7 @@ class FormFields
   end
 
   def fusion_columns_schema
-    FusionColumnsSchema.new(@form_fields).schema
+    Form::Fields::FusionColumnsSchema.new(@form_fields).schema
   end
 end
 
