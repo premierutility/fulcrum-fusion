@@ -55,17 +55,6 @@ describe RecordData do
               "type" => "AddressField",
               "key" => "94f8",
               "label" => "Addy",
-              "description" => nil,
-              "required" => false,
-              "disabled" => false,
-              "hidden" => false,
-              "data_name" => "name",
-              "default_value" => nil,
-              "visible_conditions_type" => nil,
-              "visible_conditions" => nil,
-              "required_conditions_type" => nil,
-              "required_conditions" => nil,
-              "numeric" => true
             }
           )
         actual_fusion_format = RecordData.new(numeric_record).fusion_format
@@ -96,16 +85,6 @@ describe RecordData do
               "type" => "TextField",
               "key" => "94f8",
               "label" => "Name",
-              "description" => nil,
-              "required" => false,
-              "disabled" => false,
-              "hidden" => false,
-              "data_name" => "name",
-              "default_value" => nil,
-              "visible_conditions_type" => nil,
-              "visible_conditions" => nil,
-              "required_conditions_type" => nil,
-              "required_conditions" => nil,
               "numeric" => false
             }
           )
@@ -132,16 +111,6 @@ describe RecordData do
               "type" => "TextField",
               "key" => "94f8",
               "label" => "Number",
-              "description" => nil,
-              "required" => false,
-              "disabled" => false,
-              "hidden" => false,
-              "data_name" => "name",
-              "default_value" => nil,
-              "visible_conditions_type" => nil,
-              "visible_conditions" => nil,
-              "required_conditions_type" => nil,
-              "required_conditions" => nil,
               "numeric" => true
             }
           )
