@@ -22,7 +22,57 @@ describe RecordData do
   end
 
   describe "#fusion_format" do
-    describe "with an address field"
+    describe "with an address field" do
+      let(:expected_fusion_format) do
+        { 'Addy' => "1600 penn ave ste 100, capitol, Wash DC 11111" }.
+          merge(expected_raw_format).
+          merge({'form_values' => "{\"94f8\":{\"sub_thoroughfare\":\"1600\",\"thoroughfare\":\"penn ave\",\"suite\":\"ste 100\",\"locality\":\"capitol\",\"admin_area\":\"Wash DC\",\"postal_code\":\"11111\"}}"})
+      end
+
+      let(:numeric_record) do
+        record_data.merge(
+          {
+            'form_values' =>
+              {
+                '94f8' =>
+                  {
+                    "sub_thoroughfare" => "1600",
+                    "thoroughfare" => "penn ave",
+                    "suite" => "ste 100",
+                    "locality" => "capitol",
+                    "admin_area" => "Wash DC",
+                    "postal_code" => "11111"
+                  }
+              }
+          }
+        )
+      end
+
+      it "converts the data properly" do
+        Form.any_instance.stub(:find_field_by_key).with('94f8').
+          and_return(
+            {
+              "type" => "AddressField",
+              "key" => "94f8",
+              "label" => "Addy",
+              "description" => nil,
+              "required" => false,
+              "disabled" => false,
+              "hidden" => false,
+              "data_name" => "name",
+              "default_value" => nil,
+              "visible_conditions_type" => nil,
+              "visible_conditions" => nil,
+              "required_conditions_type" => nil,
+              "required_conditions" => nil,
+              "numeric" => true
+            }
+          )
+        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format.should == expected_fusion_format
+      end
+    end
+
     describe "with a choice field"
     describe "with a classification field"
     describe "with a datetime field"
