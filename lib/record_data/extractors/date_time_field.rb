@@ -1,6 +1,7 @@
 class RecordData
   module Extractors
-    class DateTimeField; end
+    class DateTimeField < TextField
+    end
   end
 end
 

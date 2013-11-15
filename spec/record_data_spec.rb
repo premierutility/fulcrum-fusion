@@ -159,10 +159,41 @@ describe RecordData do
         actual_fusion_format = RecordData.new(numeric_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
-
     end
 
-    describe "with a datetime field"
+    describe "with a datetime field" do
+      let(:expected_fusion_format) do
+        { 'Datey' => "2013-12-25" }.
+          merge(expected_raw_format).
+          merge({'form_values' => "{\"94f8\":\"2013-12-25\"}"})
+      end
+
+      let(:numeric_record) do
+        record_data.merge(
+          {
+            'form_values' =>
+              {
+                '94f8' => "2013-12-25"
+              }
+          }
+        )
+      end
+
+      it "converts the data properly" do
+        Form.any_instance.stub(:find_field_by_key).with('94f8').
+          and_return(
+            {
+              "type" => "DateTimeField",
+              "key" => "94f8",
+              "label" => "Datey",
+            }
+          )
+
+        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format.should == expected_fusion_format
+      end
+    end
+
     describe "with a photo field"
     describe "with a section"
     describe "with a signature field"
