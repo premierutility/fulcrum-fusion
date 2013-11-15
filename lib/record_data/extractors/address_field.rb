@@ -12,7 +12,8 @@ class RecordData
         zip_code = @field_value['postal_code']
 
         street_portion = "#{number} #{street} #{suite}"
-        city_portion = "#{city}, #{state} #{zip_code}"
+        city_portion   = "#{city}, #{state} #{zip_code}"
+
         "#{street_portion}, #{city_portion}"
       end
     end
