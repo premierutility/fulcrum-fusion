@@ -57,6 +57,7 @@ describe RecordData do
               "label" => "Addy",
             }
           )
+
         actual_fusion_format = RecordData.new(numeric_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
@@ -89,7 +90,7 @@ describe RecordData do
           and_return(
             {
               "type" => "ChoiceField",
-              "key" => "38b3",
+              "key" => "94f8",
               "label" => "Singly",
               "multiple" => false,
               "allow_other" => true,
@@ -113,6 +114,7 @@ describe RecordData do
               ]
             }
           )
+
         actual_fusion_format = RecordData.new(numeric_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
@@ -120,7 +122,6 @@ describe RecordData do
 
     describe "with a classification field"
     describe "with a datetime field"
-    describe "with a label"
     describe "with a photo field"
     describe "with a section"
     describe "with a signature field"
@@ -143,6 +144,7 @@ describe RecordData do
               "numeric" => false
             }
           )
+
         actual_fusion_format = RecordData.new(text_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
@@ -169,6 +171,7 @@ describe RecordData do
               "numeric" => true
             }
           )
+
         actual_fusion_format = RecordData.new(numeric_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
