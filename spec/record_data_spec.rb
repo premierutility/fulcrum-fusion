@@ -120,7 +120,48 @@ describe RecordData do
       end
     end
 
-    describe "with a classification field"
+    describe "with a classification field" do
+      let(:expected_fusion_format) do
+        { 'Classy' => "christian, denomination=maronite" }.
+          merge(expected_raw_format).
+          merge({'form_values' => "{\"94f8\":{\"choice_values\":[\"christian\",\"denomination=maronite\"],\"other_values\":[]}}"})
+      end
+
+      let(:numeric_record) do
+        record_data.merge(
+          {
+            'form_values' =>
+              {
+                '94f8' =>
+                  {
+                    "choice_values" =>
+                      [ "christian", "denomination=maronite" ],
+                    "other_values" => []
+                  }
+              }
+          }
+        )
+      end
+
+      it "converts the data properly" do
+        Form.any_instance.stub(:find_field_by_key).with('94f8').
+          and_return(
+            {
+              "type" => "ClassificationField",
+              "key" => "94f8",
+              "label" => "Classy",
+              "multiple" => false,
+              "allow_other" => true,
+              "classification_set_id" => "469a98de-e3aa"
+            }
+          )
+
+        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format.should == expected_fusion_format
+      end
+
+    end
+
     describe "with a datetime field"
     describe "with a photo field"
     describe "with a section"
