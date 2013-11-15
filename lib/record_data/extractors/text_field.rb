@@ -1,10 +1,8 @@
+require_relative 'base'
+
 class RecordData
   module Extractors
-    class TextField
-      def initialize(field_value)
-        @field_value = field_value
-      end
-
+    class TextField < Base
       def extract
         @field_value
       end

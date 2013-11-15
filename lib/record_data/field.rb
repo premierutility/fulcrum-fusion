@@ -11,7 +11,7 @@ class RecordData
     def extracted_data
       return unless form_field
 
-      extractor_class.new(@field_value).extract
+      extractor_class.new(form_field, @field_value).extract
     end
 
     def name
