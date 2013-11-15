@@ -63,62 +63,61 @@ describe RecordData do
     end
 
     describe "with a choice field" do
-      describe "that uses inline choices" do
-        let(:expected_fusion_format) do
-          { 'Singly' => "two, three" }.
-            merge(expected_raw_format).
-            merge({'form_values' => "{\"94f8\":{\"choice_values\":[\"two\",\"three\"],\"other_values\":[]}}"})
-        end
+      let(:expected_fusion_format) do
+        { 'Singly' => "two, three" }.
+          merge(expected_raw_format).
+          merge({'form_values' => "{\"94f8\":{\"choice_values\":[\"two\",\"three\"],\"other_values\":[]}}"})
+      end
 
-        let(:numeric_record) do
-          record_data.merge(
+      let(:numeric_record) do
+        record_data.merge(
+          {
+            'form_values' =>
+              {
+                '94f8' =>
+                  {
+                    "choice_values" => [ "two", "three" ],
+                    "other_values" => []
+                  }
+              }
+          }
+        )
+      end
+
+      it "converts the data properly" do
+        Form.any_instance.stub(:find_field_by_key).with('94f8').
+          and_return(
             {
-              'form_values' =>
+              "type" => "ChoiceField",
+              "key" => "38b3",
+              "label" => "Singly",
+              "multiple" => false,
+              "allow_other" => true,
+              "choices" => [
                 {
-                  '94f8' =>
-                    {
-                      "choice_values" => [ "two", "three" ],
-                      "other_values" => []
-                    }
+                  "label" => "one",
+                  "value" => "one"
+                },
+                {
+                  "label" => "two",
+                  "value" => "two"
+                },
+                {
+                  "label" => "three",
+                  "value" => "three"
+                },
+                {
+                  "label" => "four",
+                  "value" => "four"
                 }
+              ]
             }
           )
-        end
-
-        it "converts the data properly" do
-          Form.any_instance.stub(:find_field_by_key).with('94f8').
-            and_return(
-              {
-                "type" => "ChoiceField",
-                "key" => "38b3",
-                "label" => "Singly",
-                "multiple" => false,
-                "allow_other" => true,
-                "choices" => [
-                  {
-                    "label" => "one",
-                    "value" => "one"
-                  },
-                  {
-                    "label" => "two",
-                    "value" => "two"
-                  },
-                  {
-                    "label" => "three",
-                    "value" => "three"
-                  },
-                  {
-                    "label" => "four",
-                    "value" => "four"
-                  }
-                ]
-              }
-            )
-          actual_fusion_format = RecordData.new(numeric_record).fusion_format
-          actual_fusion_format.should == expected_fusion_format
-        end
+        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format.should == expected_fusion_format
       end
     end
+
     describe "with a classification field"
     describe "with a datetime field"
     describe "with a label"
