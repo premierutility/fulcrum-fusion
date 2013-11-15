@@ -194,7 +194,55 @@ describe RecordData do
       end
     end
 
-    describe "with a photo field"
+    describe "with a photo field" do
+      let(:expected_fusion_format) do
+        { 'Photoy' => "http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6.jpg http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a.jpg" }.
+          merge(expected_raw_format).
+          merge({'form_values' => "{\"94f8\":[{\"photo_id\":\"18ae3963-cf55-bfc4-0ca1-2890f8de88d6\",\"caption\":\"First caption\",\"url\":\"http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6.jpg\",\"thumbnail\":\"http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6/thumbnail.jpg\",\"large\":\"http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6/large.jpg\"},{\"photo_id\":\"c91f8175-6245-3166-a024-cc5a1e4f0f2a\",\"caption\":\"Second caption\",\"url\":\"http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a.jpg\",\"thumbnail\":\"http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a/thumbnail.jpg\",\"large\":\"http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a/large.jpg\"}]}"})
+      end
+
+      let(:numeric_record) do
+        record_data.merge(
+          {
+            'form_values' =>
+              {
+                '94f8' =>
+                  [
+                    {
+                      "photo_id" => "18ae3963-cf55-bfc4-0ca1-2890f8de88d6",
+                      "caption" => "First caption",
+                      "url" => "http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6.jpg",
+                      "thumbnail" => "http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6/thumbnail.jpg",
+                      "large" => "http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6/large.jpg"
+                    },
+                    {
+                      "photo_id" => "c91f8175-6245-3166-a024-cc5a1e4f0f2a",
+                      "caption" => "Second caption",
+                      "url" => "http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a.jpg",
+                      "thumbnail" => "http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a/thumbnail.jpg",
+                      "large" => "http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a/large.jpg"
+                    }
+                  ]
+              }
+          }
+        )
+      end
+
+      it "converts the data properly" do
+        Form.any_instance.stub(:find_field_by_key).with('94f8').
+          and_return(
+            {
+              "type" => "PhotoField",
+              "key" => "94f8",
+              "label" => "Photoy",
+            }
+          )
+
+        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format.should == expected_fusion_format
+      end
+    end
+
     describe "with a section"
     describe "with a signature field"
 
