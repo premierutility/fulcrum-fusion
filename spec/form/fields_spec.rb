@@ -12,16 +12,7 @@ describe Form::Fields do
             "type" => "TextField",
             "key" => "94f8",
             "label" => "Name",
-            "description" => nil,
-            "required" => false,
-            "disabled" => false,
-            "hidden" => false,
             "data_name" => "name",
-            "default_value" => nil,
-            "visible_conditions_type" => nil,
-            "visible_conditions" => nil,
-            "required_conditions_type" => nil,
-            "required_conditions" => nil,
             "numeric" => false
           }
         ]
@@ -41,16 +32,7 @@ describe Form::Fields do
             "type" => "TextField",
             "key" => "7ef1",
             "label" => "Numba",
-            "description" => nil,
-            "required" => false,
-            "disabled" => false,
-            "hidden" => false,
             "data_name" => "name",
-            "default_value" => nil,
-            "visible_conditions_type" => nil,
-            "visible_conditions" => nil,
-            "required_conditions_type" => nil,
-            "required_conditions" => nil,
             "numeric" => true
           }
         ]
@@ -70,17 +52,7 @@ describe Form::Fields do
             "type" => "Label",
             "key" => "1efc",
             "label" => "Babel",
-            "description" => nil,
-            "required" => false,
-            "disabled" => false,
-            "hidden" => false,
             "data_name" => "name",
-            "default_value" => nil,
-            "visible_conditions_type" => nil,
-            "visible_conditions" => nil,
-            "required_conditions_type" => nil,
-            "required_conditions" => nil,
-            "numeric" => false
           }
         ]
       end
@@ -98,16 +70,7 @@ describe Form::Fields do
             "type" => "ChoiceField",
             "key" => "aed4",
             "label" => "One Choice yo",
-            "description" => nil,
-            "required" => false,
-            "disabled" => false,
-            "hidden" => false,
             "data_name" => "one_choice_yo",
-            "default_value" => nil,
-            "visible_conditions_type" => nil,
-            "visible_conditions" => nil,
-            "required_conditions_type" => nil,
-            "required_conditions" => nil,
             "multiple" => false,
             "allow_other" => true,
             "choices" =>
@@ -155,16 +118,7 @@ describe Form::Fields do
             "type" => "ClassificationField",
             "key" => "71d6",
             "label" => "Classy Field",
-            "description" => nil,
-            "required" => false,
-            "disabled" => false,
-            "hidden" => false,
             "data_name" => "classy_field",
-            "default_value" => nil,
-            "visible_conditions_type" => nil,
-            "visible_conditions" => nil,
-            "required_conditions_type" => nil,
-            "required_conditions" => nil,
             "allow_other" => true,
             "classification_set_id" => "469a98de-e3aa-405a-a0bb-5cf9f679c90b"
           }
@@ -185,16 +139,7 @@ describe Form::Fields do
             "type" => "PhotoField",
             "key" => "51f7",
             "label" => "Photoz",
-            "description" => nil,
-            "required" => false,
-            "disabled" => false,
-            "hidden" => false,
             "data_name" => "photoz",
-            "default_value" => nil,
-            "visible_conditions_type" => nil,
-            "visible_conditions" => nil,
-            "required_conditions_type" => nil,
-            "required_conditions" => nil
           }
         ]
       end
@@ -213,16 +158,7 @@ describe Form::Fields do
             "type" => "DateTimeField",
             "key" => "e219",
             "label" => "Da Date Field",
-            "description" => nil,
-            "required" => false,
-            "disabled" => false,
-            "hidden" => false,
             "data_name" => "da_date_field",
-            "default_value" => nil,
-            "visible_conditions_type" => nil,
-            "visible_conditions" => nil,
-            "required_conditions_type" => nil,
-            "required_conditions" => nil
           }
         ]
       end
@@ -241,16 +177,7 @@ describe Form::Fields do
             "type" => "AddressField",
             "key" => "0ebd",
             "label" => "L'address",
-            "description" => nil,
-            "required" => false,
-            "disabled" => false,
-            "hidden" => false,
             "data_name" => "laddress",
-            "default_value" => nil,
-            "visible_conditions_type" => nil,
-            "visible_conditions" => nil,
-            "required_conditions_type" => nil,
-            "required_conditions" => nil,
             "auto_populate" => true
           }
         ]
@@ -269,17 +196,7 @@ describe Form::Fields do
             "type" => "SignatureField",
             "key" => "486e",
             "label" => "Siggy",
-            "description" => nil,
-            "required" => false,
-            "disabled" => false,
-            "hidden" => false,
             "data_name" => "siggy",
-            "default_value" => nil,
-            "visible_conditions_type" => nil,
-            "visible_conditions" => nil,
-            "required_conditions_type" => nil,
-            "required_conditions" => nil,
-            "agreement_text" => ""
           }
         ]
       end
@@ -314,32 +231,14 @@ describe Form::Fields do
                 "type" => "TextField",
                 "key" => "4c79",
                 "label" => "Texty",
-                "description" => nil,
-                "required" => false,
-                "disabled" => false,
-                "hidden" => false,
                 "data_name" => "texty",
-                "default_value" => nil,
-                "visible_conditions_type" => nil,
-                "visible_conditions" => nil,
-                "required_conditions_type" => nil,
-                "required_conditions" => nil,
                 "numeric" => false
               },
               {
                 "type" => "TextField",
                 "key" => "6519",
                 "label" => "Nummy",
-                "description" => nil,
-                "required" => false,
-                "disabled" => false,
-                "hidden" => false,
                 "data_name" => "nummy",
-                "default_value" => nil,
-                "visible_conditions_type" => nil,
-                "visible_conditions" => nil,
-                "required_conditions_type" => nil,
-                "required_conditions" => nil,
                 "numeric" => true
               }
             ]
