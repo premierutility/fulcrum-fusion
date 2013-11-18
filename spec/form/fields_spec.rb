@@ -229,6 +229,24 @@ describe Form::Fields do
           should include({ name: 'texty', type: 'string' }, { name: 'nummy', type: 'number'})
       end
     end
+
+    describe "with an unknown field type" do
+      let(:unknown_field_data) do
+        [
+          {
+            "type" => "UnknownField",
+            "key" => "486e",
+            "data_name" => "whatever_field",
+          }
+        ]
+      end
+
+      it "returns a text column schema" do
+        @field_data = unknown_field_data
+        subject.fusion_columns_schema.
+          should include({ name: 'whatever_field', type: 'string' })
+      end
+    end
   end
 end
 

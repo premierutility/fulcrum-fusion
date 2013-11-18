@@ -1,4 +1,5 @@
 require_relative 'schema_for_type'
+require_relative 'schemas'
 
 class Form
   class Fields
@@ -17,15 +18,15 @@ class Form
 
     private
       def process
-        klass = schema_type
-        return unless klass
+        klass = schema_type ? schema_type : Schemas['TextField']
 
         field = klass.new(@form_field)
         @schema = field.schema
       end
 
       def schema_type
-        Form::Fields::SchemaForType.new(@form_field).schema_class
+        @schema_type ||=
+          Form::Fields::SchemaForType.new(@form_field).schema_class
       end
     end
   end
