@@ -157,7 +157,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = datetime_field_data
         subject.fusion_columns_schema.
-          should include({ name: 'da_date_field', type: 'string' })
+          should include({ name: 'da_date_field', type: 'datetime' })
       end
     end
 
