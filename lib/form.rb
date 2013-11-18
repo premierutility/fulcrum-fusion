@@ -10,6 +10,9 @@ class Form
     return unless form_exists?
 
     form_elements = form_request['form']['elements']
+
+    form_elements = flatten_section_elements(form_elements)
+
     field_for_key = form_elements.select{|e| e['key'] == field_key}.first
   end
 
@@ -33,6 +36,16 @@ private
 
   def form_exists?
     form_request && form_request['form']
+  end
+
+  def flatten_section_elements(form_elements)
+    form_elements.flat_map do |e|
+      if e['type'] == 'Section'
+        e['elements']
+      else
+        e
+      end
+    end
   end
 end
 
