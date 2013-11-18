@@ -249,7 +249,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = section_data
         subject.fusion_columns_schema.
-          should include({ name: 'A Special Section - Texty', type: 'string' }, { name: 'A Special Section - Nummy', type: 'number'})
+          should include({ name: 'texty', type: 'string' }, { name: 'nummy', type: 'number'})
       end
     end
   end
