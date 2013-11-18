@@ -29,7 +29,7 @@ describe RecordData do
           merge({'form_values' => "{\"94f8\":{\"sub_thoroughfare\":\"1600\",\"thoroughfare\":\"penn ave\",\"suite\":\"ste 100\",\"locality\":\"capitol\",\"admin_area\":\"Wash DC\",\"postal_code\":\"11111\"}}"})
       end
 
-      let(:numeric_record) do
+      let(:address_record) do
         record_data.merge(
           {
             'form_values' =>
@@ -58,7 +58,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format = RecordData.new(address_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -70,7 +70,7 @@ describe RecordData do
           merge({'form_values' => "{\"94f8\":{\"choice_values\":[\"two\",\"three\"],\"other_values\":[]}}"})
       end
 
-      let(:numeric_record) do
+      let(:choice_record) do
         record_data.merge(
           {
             'form_values' =>
@@ -95,7 +95,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format = RecordData.new(choice_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -107,7 +107,7 @@ describe RecordData do
           merge({'form_values' => "{\"94f8\":{\"choice_values\":[\"christian\",\"denomination=maronite\"],\"other_values\":[]}}"})
       end
 
-      let(:numeric_record) do
+      let(:classification_record) do
         record_data.merge(
           {
             'form_values' =>
@@ -133,7 +133,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format = RecordData.new(classification_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -145,7 +145,7 @@ describe RecordData do
           merge({'form_values' => "{\"94f8\":\"2013-12-25\"}"})
       end
 
-      let(:numeric_record) do
+      let(:datetime_record) do
         record_data.merge(
           {
             'form_values' =>
@@ -166,7 +166,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format = RecordData.new(datetime_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -178,7 +178,7 @@ describe RecordData do
           merge({'form_values' => "{\"94f8\":[{\"photo_id\":\"18ae3963-cf55-bfc4-0ca1-2890f8de88d6\",\"caption\":\"First caption\",\"url\":\"http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6.jpg\",\"thumbnail\":\"http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6/thumbnail.jpg\",\"large\":\"http://localhost:3000/api/v2/photos/18ae3963-cf55-bfc4-0ca1-2890f8de88d6/large.jpg\"},{\"photo_id\":\"c91f8175-6245-3166-a024-cc5a1e4f0f2a\",\"caption\":\"Second caption\",\"url\":\"http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a.jpg\",\"thumbnail\":\"http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a/thumbnail.jpg\",\"large\":\"http://localhost:3000/api/v2/photos/c91f8175-6245-3166-a024-cc5a1e4f0f2a/large.jpg\"}]}"})
       end
 
-      let(:numeric_record) do
+      let(:photo_record) do
         record_data.merge(
           {
             'form_values' =>
@@ -215,7 +215,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format = RecordData.new(photo_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -227,7 +227,7 @@ describe RecordData do
           merge({'form_values' => "{\"94f8\":{\"signature_id\":\"f98e60f0-7a63-0ef3-13ae-ccf28e488ec3\",\"url\":\"http://localhost:3000/api/v2/signatures/f98e60f0-7a63-0ef3-13ae-ccf28e488ec3.png\",\"thumbnail\":\"http://localhost:3000/api/v2/signatures/f98e60f0-7a63-0ef3-13ae-ccf28e488ec3/thumbnail.png\",\"large\":\"http://localhost:3000/api/v2/signatures/f98e60f0-7a63-0ef3-13ae-ccf28e488ec3/large.png\"}}"})
       end
 
-      let(:numeric_record) do
+      let(:signature_record) do
         record_data.merge(
           {
             'form_values' =>
@@ -254,7 +254,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format = RecordData.new(signature_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -318,3 +318,4 @@ describe RecordData do
     end
   end
 end
+
