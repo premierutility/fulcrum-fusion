@@ -105,6 +105,11 @@ describe FulcrumFusion do
       end
 
       describe "with a record event" do
+        def stub_fusion_select(rows=[])
+          GData::Client::FusionTables.any_instance.stub(:select).
+            and_return(rows)
+        end
+
         include_context "stub fulcrum"
 
         before :each do
@@ -121,8 +126,7 @@ describe FulcrumFusion do
         end
 
         it "creates a new record" do
-          GData::Client::FusionTables.any_instance.stub(:select).
-            and_return([])
+          stub_fusion_select
           GData::Client::FusionTables.any_instance.stub(:insert)
           @action = :create
           record_post
@@ -130,16 +134,14 @@ describe FulcrumFusion do
         end
 
         it "doesn't create a duplicate record" do
-          GData::Client::FusionTables.any_instance.stub(:select).
-            and_return([fake_row])
+          stub_fusion_select([fake_row])
           @action = :create
           record_post
           last_response.status.should == Status::ACCEPTED
         end
 
         it "updates a record" do
-          GData::Client::FusionTables.any_instance.stub(:select).
-            and_return([fake_row])
+          stub_fusion_select([fake_row])
           GData::Client::FusionTables.any_instance.stub(:update)
           @action = :update
           record_post
@@ -147,16 +149,14 @@ describe FulcrumFusion do
         end
 
         it "doesn't update a non-existant record" do
-          GData::Client::FusionTables.any_instance.stub(:select).
-            and_return([])
+          stub_fusion_select
           @action = :update
           record_post
           last_response.status.should == Status::ACCEPTED
         end
 
         it "deletes an existing record" do
-          GData::Client::FusionTables.any_instance.stub(:select).
-            and_return([fake_row])
+          stub_fusion_select([fake_row])
           GData::Client::FusionTables.any_instance.stub(:delete)
           @action = :delete
           record_post
@@ -164,8 +164,7 @@ describe FulcrumFusion do
         end
 
         it "doesn't delete a non-existant record" do
-          GData::Client::FusionTables.any_instance.stub(:select).
-            and_return([])
+          stub_fusion_select
           @action = :delete
           record_post
           last_response.status.should == Status::ACCEPTED
