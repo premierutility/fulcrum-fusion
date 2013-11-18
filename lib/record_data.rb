@@ -29,6 +29,7 @@ private
     @raw = @record_hash
     convert_location
     sanitize_columns
+    parse_datetimes
     jsonify_form_values
   end
 
@@ -42,6 +43,18 @@ private
 
   def sanitize_columns
     @raw = RecordColumnSanitizer.new(@raw).sanitize
+  end
+
+  def parse_datetimes
+    @raw = @raw.each do |key, value|
+      if datetime_field?(key)
+        @raw[key] = DateTime.parse value
+      end
+    end
+  end
+
+  def datetime_field?(field_key)
+    field_key.match(/_at$/)
   end
 
   def jsonify_form_values
