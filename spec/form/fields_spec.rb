@@ -21,7 +21,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = text_field_data
         subject.fusion_columns_schema.
-          should include({ name: 'Name', type: 'string' })
+          should include({ name: 'name', type: 'string' })
       end
     end
 
@@ -32,7 +32,7 @@ describe Form::Fields do
             "type" => "TextField",
             "key" => "7ef1",
             "label" => "Numba",
-            "data_name" => "name",
+            "data_name" => "numba",
             "numeric" => true
           }
         ]
@@ -41,7 +41,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = numeric_field_data
         subject.fusion_columns_schema.
-          should include({ name: 'Numba', type: 'number' })
+          should include({ name: 'numba', type: 'number' })
       end
     end
 
@@ -52,7 +52,7 @@ describe Form::Fields do
             "type" => "Label",
             "key" => "1efc",
             "label" => "Babel",
-            "data_name" => "name",
+            "data_name" => "babel",
           }
         ]
       end
@@ -107,7 +107,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = choice_field_data
         subject.fusion_columns_schema.
-          should include({ name: 'One Choice yo', type: 'string' })
+          should include({ name: 'one_choice_yo', type: 'string' })
       end
     end
 
@@ -128,7 +128,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = classification_set_field_data
         subject.fusion_columns_schema.
-          should include({ name: 'Classy Field', type: 'string' })
+          should include({ name: 'classy_field', type: 'string' })
       end
     end
 
@@ -147,7 +147,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = photo_field_data
         subject.fusion_columns_schema.
-          should include({ name: 'Photoz', type: 'string' })
+          should include({ name: 'photoz', type: 'string' })
       end
     end
 
@@ -166,7 +166,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = datetime_field_data
         subject.fusion_columns_schema.
-          should include({ name: 'Da Date Field', type: 'string' })
+          should include({ name: 'da_date_field', type: 'string' })
       end
     end
 
@@ -185,7 +185,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = address_field_data
         subject.fusion_columns_schema.
-          should include({ name: "L'address", type: 'string' })
+          should include({ name: "laddress", type: 'string' })
       end
     end
 
@@ -204,7 +204,7 @@ describe Form::Fields do
       it "returns the right column schema" do
         @field_data = signature_field_data
         subject.fusion_columns_schema.
-          should include({ name: "Siggy", type: 'string' })
+          should include({ name: "siggy", type: 'string' })
       end
     end
 

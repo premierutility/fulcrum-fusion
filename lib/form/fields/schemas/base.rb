@@ -7,7 +7,7 @@ class Form
         end
 
         def schema
-          { :name => @form_field['label'], :type => type } if type
+          { :name => @form_field['data_name'], :type => type } if type
         end
 
       private
