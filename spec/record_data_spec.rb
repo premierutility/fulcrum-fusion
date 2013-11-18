@@ -140,7 +140,7 @@ describe RecordData do
 
     describe "with a datetime field" do
       let(:expected_fusion_format) do
-        { 'datey' => "2013-12-25" }.
+        { 'datey' => DateTime.parse("2013-12-25") }.
           merge(record_raw_data).
           merge({'form_values' => "{\"94f8\":\"2013-12-25\"}"})
       end

@@ -1,6 +1,9 @@
 class RecordData
   module Extractors
-    class DateTimeField < TextField
+    class DateTimeField < Base
+      def extract
+        DateTime.parse @field_value
+      end
     end
   end
 end
