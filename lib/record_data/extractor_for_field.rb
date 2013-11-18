@@ -3,7 +3,6 @@ require_relative 'extractors/choice_field'
 require_relative 'extractors/classification_field'
 require_relative 'extractors/date_time_field'
 require_relative 'extractors/photo_field'
-require_relative 'extractors/section'
 require_relative 'extractors/signature_field'
 require_relative 'extractors/text_field'
 require_relative 'extractors/numeric_field'
@@ -36,7 +35,6 @@ class RecordData
         'ClassificationField' => Extractors::ClassificationField,
         'DateTimeField'       => Extractors::DateTimeField,
         'PhotoField'          => Extractors::PhotoField,
-        'Section'             => Extractors::Section,
         'SignatureField'      => Extractors::SignatureField,
         'TextField'           => Extractors::TextField,
         'NumericField'        => Extractors::NumericField

@@ -243,14 +243,11 @@ describe RecordData do
       end
     end
 
-    describe "with a section"
-
     describe "with a signature field" do
       let(:expected_fusion_format) do
         { 'Siggy' => "http://localhost:3000/api/v2/signatures/f98e60f0-7a63-0ef3-13ae-ccf28e488ec3.png" }.
           merge(expected_raw_format).
           merge({'form_values' => "{\"94f8\":{\"signature_id\":\"f98e60f0-7a63-0ef3-13ae-ccf28e488ec3\",\"url\":\"http://localhost:3000/api/v2/signatures/f98e60f0-7a63-0ef3-13ae-ccf28e488ec3.png\",\"thumbnail\":\"http://localhost:3000/api/v2/signatures/f98e60f0-7a63-0ef3-13ae-ccf28e488ec3/thumbnail.png\",\"large\":\"http://localhost:3000/api/v2/signatures/f98e60f0-7a63-0ef3-13ae-ccf28e488ec3/large.png\"}}"})
-        
       end
 
       let(:numeric_record) do
