@@ -46,10 +46,10 @@ describe RecordProcessor::RecordCreator do
             end
 
             @table.should_receive(:insert).once.
-              with([record_fusion_data]).
+              with([bad_record_fusion_data]).
               and_raise(ArgumentError,"The column doesn't exist")
             @table.should_receive(:insert).once.
-              with([record_raw_data])
+              with([bad_record_raw_data])
             processor.process.should == Status::CREATED
           end
         end

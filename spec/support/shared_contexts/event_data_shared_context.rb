@@ -78,17 +78,9 @@ module SharedContexts
 
       let(:record_data) { record_event_data['data'] }
 
-      let(:bad_record_data) do
-        data = record_data
-        data['form_values'].
-          merge!({'876d' => 'ninja turtles'})
-        data
-      end
-
       let(:record_fusion_data) do
         {
           'name' => 'Fake Record',
-          'fake' => 'ninja turtles',
           'status' => nil,
           'version' => 1,
           'id' => '7553fd44-78bb',
@@ -105,7 +97,7 @@ module SharedContexts
           'assigned_to' => nil,
           'assigned_to_id' => nil,
           'form_values' =>
-            "{\"94f8\":\"Fake Record\",\"876d\":\"ninja turtles\"}",
+            "{\"94f8\":\"Fake Record\"",
           'location' => '38.8968321491252,-104.831140637398',
           'altitude' => nil,
           'speed' => nil,
@@ -133,7 +125,7 @@ module SharedContexts
           'assigned_to' => nil,
           'assigned_to_id' => nil,
           'form_values' =>
-            "{\"94f8\":\"Fake Record\",\"876d\":\"ninja turtles\"}",
+            "{\"94f8\":\"Fake Record\"}",
           'location' => '38.8968321491252,-104.831140637398',
           'altitude' => nil,
           'speed' => nil,
@@ -141,6 +133,30 @@ module SharedContexts
           'horizontal_accuracy' => nil,
           'vertical_accuracy' => nil
         }
+      end
+
+      let(:bad_record_data) do
+        record_data.
+          tap do |d|
+            d['form_values'].merge!({'876d' => 'ninja turtles'})
+          end
+      end
+
+      let(:bad_record_fusion_data) do
+        record_fusion_data.dup.
+          tap do |d|
+            d['fake'] = 'ninja turtles'
+            d['form_values'] =
+              "{\"94f8\":\"Fake Record\",\"876d\":\"ninja turtles\"}"
+          end
+      end
+
+      let(:bad_record_raw_data) do
+        record_raw_data.dup.
+          tap do |d|
+            d['form_values'] =
+              "{\"94f8\":\"Fake Record\",\"876d\":\"ninja turtles\"}"
+          end
       end
     end
   end
