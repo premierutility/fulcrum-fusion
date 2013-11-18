@@ -15,7 +15,7 @@ class RecordData
     end
 
     def name
-      form_field['label']
+      form_field['data_name']
     end
 
   private
