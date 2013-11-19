@@ -18,15 +18,20 @@ class Form
 
     private
       def process
-        klass = schema_type ? schema_type : Schemas['TextField']
+        klass = schema_type
 
         field = klass.new(@form_field)
         @schema = field.schema
       end
 
       def schema_type
-        @schema_type ||=
-          Form::Fields::SchemaForType.new(@form_field).schema_class
+        unless @schema_type
+          schema_class = Form::Fields::SchemaForType.new(@form_field).schema_class
+          default_schema = Schemas['TextField']
+          @schema_type = schema_class ? schema_class : default_schema
+        end
+
+        @schema_type
       end
     end
   end
