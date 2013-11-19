@@ -20,33 +20,69 @@ describe RecordProcessor do
         FulcrumTable.any_instance.stub(:table).and_return(Object.new)
       end
 
-      it "processes record create events" do
-        @action = :create
-        RecordProcessor::RecordCreator.any_instance.
-          should_receive(:process).
-          and_return(Status::CREATED)
-        processor.process.should == Status::CREATED
+      describe "where the fulcrum form doesn't exist" do
+        before :each do
+          Form.stub(:find)
+        end
+
+        it "accepts record create events" do
+          @action = :create
+
+          RecordProcessor::RecordCreator.any_instance.
+            should_not_receive(:process)
+          processor.process.should == Status::ACCEPTED
+        end
+
+
+        it "accepts record update events" do
+          @action = :update
+
+          RecordProcessor::RecordUpdater.any_instance.
+            should_not_receive(:process)
+          processor.process.should == Status::ACCEPTED
+        end
+
+
+        it "accepts record delete events" do
+          @action = :delete
+
+          RecordProcessor::RecordDeleter.any_instance.
+            should_not_receive(:process)
+          processor.process.should == Status::ACCEPTED
+        end
       end
 
-      it "processes record update events" do
-        @action = :update
-        RecordProcessor::RecordUpdater.any_instance.
-          should_receive(:process).
-          and_return(Status::NO_CONTENT)
-        processor.process.should == Status::NO_CONTENT
-      end
+      describe "where the fulcrum form exists" do
+        include_context "stub fulcrum with form"
 
-      it "processes record delete events" do
-        @action = :delete
-        RecordProcessor::RecordDeleter.any_instance.
-          should_receive(:process).
-          and_return(Status::NO_CONTENT)
-        processor.process.should == Status::NO_CONTENT
-      end
+        it "processes record create events" do
+          @action = :create
+          RecordProcessor::RecordCreator.any_instance.
+            should_receive(:process).
+            and_return(Status::CREATED)
+          processor.process.should == Status::CREATED
+        end
 
-      it "ignores bogus record events" do
-        @action = :bogus
-        processor.process.should == Status::ACCEPTED
+        it "processes record update events" do
+          @action = :update
+          RecordProcessor::RecordUpdater.any_instance.
+            should_receive(:process).
+            and_return(Status::NO_CONTENT)
+          processor.process.should == Status::NO_CONTENT
+        end
+
+        it "processes record delete events" do
+          @action = :delete
+          RecordProcessor::RecordDeleter.any_instance.
+            should_receive(:process).
+            and_return(Status::NO_CONTENT)
+          processor.process.should == Status::NO_CONTENT
+        end
+
+        it "ignores bogus record events" do
+          @action = :bogus
+          processor.process.should == Status::ACCEPTED
+        end
       end
     end
 

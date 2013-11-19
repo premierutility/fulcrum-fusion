@@ -16,6 +16,10 @@ class Form
     field_for_key = form_elements.select{|e| e['key'] == field_key}.first
   end
 
+  def form_exists?
+    form_request && form_request['form']
+  end
+
 private
   def form_request
     unless @form_request
@@ -32,10 +36,6 @@ private
       config.uri = ENV['FULCRUM_API_URL']
       config.key = ENV['FULCRUM_API_KEY']
     end
-  end
-
-  def form_exists?
-    form_request && form_request['form']
   end
 
   def flatten_section_elements(form_elements)

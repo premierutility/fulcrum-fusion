@@ -14,10 +14,15 @@ class RecordProcessor
   end
 
   def process
-    @record_data = RecordData.new(@event_data['data'])
-
     id = FormProcessor::Utils.id(@event_data['data']['form_id'])
     @table = FulcrumTable.new(id).table
+
+    fulcrum_form = Form.new(@event_data['data']['form_id'])
+
+    # The record is for a table that doesn't exist, so don't process it.
+    return Status::ACCEPTED unless @table && fulcrum_form.form_exists?
+
+    @record_data = RecordData.new(fulcrum_form, @event_data['data'])
 
     return Status::ACCEPTED unless action
 
@@ -33,15 +38,14 @@ private
     }.freeze
 
   def action
-    # The record is for a table that doesn't exist, so don't process it.
-    return nil unless @table
+    unless @action
+      klass = ACTIONS[@action_name]
+      return nil unless klass
 
-    return @action if @action
+      @action = klass.new(@table, @record_data)
+    end
 
-    klass = ACTIONS[@action_name]
-    return unless klass
-
-    @action = klass.new(@table, @record_data)
+    @action
   end
 end
 
