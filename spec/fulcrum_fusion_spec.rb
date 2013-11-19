@@ -111,6 +111,7 @@ describe FulcrumFusion do
         end
 
         include_context "stub fulcrum"
+        include_context "stub fulcrum with form"
 
         before :each do
           EventProcessor.any_instance.stub(:sleep)
