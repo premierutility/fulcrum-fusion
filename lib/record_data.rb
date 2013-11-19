@@ -3,8 +3,9 @@ require_relative 'record_column_sanitizer'
 require_relative 'record_data/extractor'
 
 class RecordData
-  def initialize(record_hash)
-    @record_hash = record_hash
+  def initialize(fulcrum_form, record_hash)
+    @fulcrum_form = fulcrum_form
+    @record_hash  = record_hash
   end
 
   def fusion_format
@@ -62,7 +63,7 @@ private
   end
 
   def add_record_values_to_top_level
-    record_values = RecordData::Extractor.new(@fusion).extract
+    record_values = RecordData::Extractor.new(@fulcrum_form, @fusion).extract
     @fusion = record_values.merge(@fusion)
   end
 end

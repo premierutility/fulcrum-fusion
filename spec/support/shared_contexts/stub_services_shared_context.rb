@@ -10,6 +10,12 @@ module SharedContexts
       end
     end
 
+    shared_context "stub fulcrum form" do
+      let(:fulcrum_form) do
+        Form.new("fakeid").tap{|f| f.stub(:form_exists?).and_return(true) }
+      end
+    end
+
     shared_context "stub fulcrum" do
       before :each do
         Fulcrum::Form.stub(:find)

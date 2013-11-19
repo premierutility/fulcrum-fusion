@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 RSpec.configure{|c| c.include SharedContexts::RecordProcessorSharedContext}
+RSpec.configure{|c| c.include SharedContexts::StubServicesSharedContext }
 
 describe RecordProcessor::RecordCreator do
   describe "#process" do
@@ -19,8 +20,10 @@ describe RecordProcessor::RecordCreator do
       end
 
       describe "with an extra column" do
+        include_context "stub fulcrum form"
+
         let(:bad_record) do
-          RecordData.new(bad_record_data)
+          RecordData.new(fulcrum_form, bad_record_data)
         end
 
         before :each do

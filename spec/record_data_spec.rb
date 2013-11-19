@@ -2,9 +2,11 @@ require 'spec_helper'
 require_relative 'support/shared_contexts/event_data_shared_context'
 
 RSpec.configure{|c| c.include SharedContexts::EventDataSharedContext }
+RSpec.configure{|c| c.include SharedContexts::StubServicesSharedContext }
 
 describe RecordData do
   include_context "event data"
+  include_context "stub fulcrum form"
 
   let(:expected_raw_format) do
     record_data.dup.tap do |h|
@@ -58,7 +60,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(address_record).fusion_format
+        actual_fusion_format = RecordData.new(fulcrum_form, address_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -95,7 +97,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(choice_record).fusion_format
+        actual_fusion_format = RecordData.new(fulcrum_form, choice_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -133,7 +135,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(classification_record).fusion_format
+        actual_fusion_format = RecordData.new(fulcrum_form, classification_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -166,7 +168,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(datetime_record).fusion_format
+        actual_fusion_format = RecordData.new(fulcrum_form, datetime_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -215,7 +217,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(photo_record).fusion_format
+        actual_fusion_format = RecordData.new(fulcrum_form, photo_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -254,7 +256,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(signature_record).fusion_format
+        actual_fusion_format = RecordData.new(fulcrum_form, signature_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -278,7 +280,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(text_record).fusion_format
+        actual_fusion_format = RecordData.new(fulcrum_form, text_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -305,7 +307,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(numeric_record).fusion_format
+        actual_fusion_format = RecordData.new(fulcrum_form, numeric_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -332,7 +334,7 @@ describe RecordData do
             }
           )
 
-        actual_fusion_format = RecordData.new(unknown_record).fusion_format
+        actual_fusion_format = RecordData.new(fulcrum_form, unknown_record).fusion_format
         actual_fusion_format.should == expected_fusion_format
       end
     end
@@ -340,7 +342,7 @@ describe RecordData do
 
   describe "#raw_format" do
     it "converts the data properly" do
-      actual_raw_format = RecordData.new(record_data).raw_format
+      actual_raw_format = RecordData.new(fulcrum_form, record_data).raw_format
       actual_raw_format.should == expected_raw_format
     end
   end

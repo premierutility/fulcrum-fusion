@@ -7,10 +7,11 @@ module SharedContexts
 
       include_context "stub fusion tables"
       include_context "stub fulcrum"
+      include_context "stub fulcrum form"
       include_context "event data"
       include_context "stub objects"
 
-      let(:record) { RecordData.new(record_data) }
+      let(:record) { RecordData.new(fulcrum_form, record_data) }
       let(:processor) { described_class.new(@table, @record) }
     end
 
