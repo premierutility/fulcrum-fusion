@@ -309,6 +309,33 @@ describe RecordData do
         actual_fusion_format.should == expected_fusion_format
       end
     end
+
+    describe "with a field of unknown type" do
+      let(:expected_fusion_format) do
+        { 'whatever_field' => "{\"dummy\":\"content\"}" }.
+          merge(record_raw_data).
+          merge({'form_values' => "{\"94f8\":{\"dummy\":\"content\"}}"})
+      end
+
+      let(:unknown_record) do
+        record_data.
+          merge( {'form_values' => { '94f8' => { 'dummy' => 'content' } } } )
+      end
+
+      it "converts the data properly" do
+        Form.any_instance.stub(:find_field_by_key).with('94f8').
+          and_return(
+            {
+              "type" => "UnknownField",
+              "key" => "94f8",
+              "data_name" => "whatever_field"
+            }
+          )
+
+        actual_fusion_format = RecordData.new(unknown_record).fusion_format
+        actual_fusion_format.should == expected_fusion_format
+      end
+    end
   end
 
   describe "#raw_format" do

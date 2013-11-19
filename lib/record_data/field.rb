@@ -1,4 +1,5 @@
 require_relative 'extractor_for_field'
+require_relative 'extractors'
 
 class RecordData
   class Field
@@ -32,7 +33,13 @@ class RecordData
     end
 
     def extractor_class
-      ExtractorForField.new(type, form_field['numeric']).extractor_class
+      unless @extractor_class
+        klass =
+          ExtractorForField.new(type, form_field['numeric']).extractor_class
+        @extractor_class = klass ? klass : Extractors::UnknownField
+      end
+
+      @extractor_class
     end
   end
 end
