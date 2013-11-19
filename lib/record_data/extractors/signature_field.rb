@@ -1,7 +1,7 @@
 require_relative 'base'
 
 class RecordData
-  module Extractors
+  class Extractors
     class SignatureField < Base
       def extract
         @field_value['url']

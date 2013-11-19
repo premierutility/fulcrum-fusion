@@ -1,7 +1,7 @@
 require_relative 'base'
 
 class RecordData
-  module Extractors
+  class Extractors
     class TextField < Base
       def extract
         @field_value

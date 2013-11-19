@@ -1,7 +1,7 @@
 require_relative 'base'
 
 class RecordData
-  module Extractors
+  class Extractors
     class ChoiceField < Base
       def extract
         choices = @field_value['choice_values']

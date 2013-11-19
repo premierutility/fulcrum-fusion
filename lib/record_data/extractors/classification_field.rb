@@ -1,5 +1,5 @@
 class RecordData
-  module Extractors
+  class Extractors
     class ClassificationField < ChoiceField
     end
   end

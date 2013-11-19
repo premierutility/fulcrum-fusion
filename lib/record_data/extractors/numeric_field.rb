@@ -1,7 +1,7 @@
 require_relative 'text_field'
 
 class RecordData
-  module Extractors
+  class Extractors
     class NumericField < TextField
     end
   end

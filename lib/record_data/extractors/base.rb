@@ -1,5 +1,5 @@
 class RecordData
-  module Extractors
+  class Extractors
     class Base
       def initialize(form_field, field_value)
         @form_field = form_field
