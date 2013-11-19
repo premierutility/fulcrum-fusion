@@ -1,4 +1,5 @@
 require_relative '../fulcrum_table'
+require_relative '../status'
 
 class FormProcessor
   class FormDeleter
@@ -10,10 +11,10 @@ class FormProcessor
       table = FulcrumTable.new(@form_id).drop_table
 
       if table
-        204 # No Content
+        Status::NO_CONTENT
       else
         # Table doesn't exist, so it couldnt' be deleted.
-        202 # Accepted
+        Status::ACCEPTED
       end
     end
   end

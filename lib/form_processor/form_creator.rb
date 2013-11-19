@@ -1,5 +1,6 @@
 require_relative '../fulcrum_table'
-require_relative '../form_fields'
+require_relative '../form/fields'
+require_relative '../status'
 
 class FormProcessor
   class FormCreator
@@ -12,16 +13,16 @@ class FormProcessor
       table = FulcrumTable.new(form_name).create_table(columns)
 
       if table
-        201 # Created
+        Status::CREATED
       else
         # Table already existed, so it wasn't created again.
-        202 # Accepted
+        Status::ACCEPTED
       end
     end
 
   private
     def event_name
-      @event_data["data"]["name"].gsub(" ", "")
+      @event_data['data']['name'].gsub(' ', '')
     end
 
     def form_name
@@ -29,8 +30,8 @@ class FormProcessor
     end
 
     def columns
-      form_fields = @event_data["data"]["elements"]
-      FormFields.new(form_fields).fusion_column_schema
+      form_fields = @event_data['data']['elements']
+      Form::Fields.new(form_fields).fusion_columns_schema
     end
   end
 end

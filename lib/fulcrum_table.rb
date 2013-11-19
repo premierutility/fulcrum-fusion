@@ -1,7 +1,7 @@
 require 'fusion_tables'
 require 'forwardable'
 require_relative 'system_columns'
-require_relative '../config.rb' if File.exists?('config.rb')
+require_relative '../config/env_vars.rb' if File.exists?('config/env_vars.rb')
 
 class FulcrumTable
   extend Forwardable

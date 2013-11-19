@@ -15,7 +15,6 @@ First off, let's gather the configuration we'll need.
 
 Below, we'll talk about these configuration variables:
 
-- `PORT`
 - `GOOGLE_USERNAME`
 - `GOOGLE_PASSWORD`
 - `GOOGLE_API_KEY`
@@ -24,17 +23,6 @@ Below, we'll talk about these configuration variables:
 
 What follows is how to determine what values you'll use for each configuration
 variable.
-
-### PORT
-
-This is the port the Sinatra application will listen to.
-
-If deploying to heroku, don't worry about this.
-
-If you're running locally, be safe and use the value of `4567`.  If you don't
-specify it, and you have a $PORT environment variable already defined, the app
-will use that and could cause issues.  If you don't define it, and it's not
-set in your environment, it'll default to `4567`.
 
 ### GOOGLE_USERNAME
 
@@ -128,7 +116,7 @@ bundle install
 #### Configure
 
 ```
-cp config.rb.sample config.rb
+cp config/env_vars.rb.sample config/env_vars.rb
 ```
 
 Use the configuration values from above to fill in `config.rb`.
@@ -141,12 +129,12 @@ Also add your API key for the Fulcrum Organization you're interested in.
 We need to run the Sinatra server:
 
 ```
-ruby fulcrum_fusion.rb
+rackup
 ```
 
 #### Use
 
-Go into Fulcrum and add `localhost:<port_from_above>` as the URL.
+Go into Fulcrum and add `localhost:9292` as the URL.
 
 See it in Action
 -------------------
@@ -177,4 +165,23 @@ Here's how things currently work:
   "system" columns applicable to all fusion tables can be filled in, in this
   case. The data will still be available in JSON form in the  'form_fields'
   column.
+
+Development and Testing
+-----------------------
+
+### Port
+
+To change the port the application runs on, use the `-p` option on `rackup`.
+For instance, `rackup -p 3002`.
+
+### Tests
+
+To run all the tests for Fulcrum Fusion, simply run:
+
+`bundle exec guard`
+
+This will run all the RSpec tests.
+
+When you're doing development, guard will watch what files change and run the
+specs as needed.
 

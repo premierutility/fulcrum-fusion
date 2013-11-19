@@ -1,1 +1,3 @@
-config.rb
+config/env_vars.rb
+tmp/
+coverage
