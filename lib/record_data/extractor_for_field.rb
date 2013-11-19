@@ -1,11 +1,4 @@
-require_relative 'extractors/address_field'
-require_relative 'extractors/choice_field'
-require_relative 'extractors/classification_field'
-require_relative 'extractors/date_time_field'
-require_relative 'extractors/photo_field'
-require_relative 'extractors/signature_field'
-require_relative 'extractors/text_field'
-require_relative 'extractors/numeric_field'
+require_relative 'extractors'
 
 class RecordData
   class ExtractorForField
@@ -16,10 +9,10 @@ class RecordData
 
     def extractor_class
       if numeric_field?
-        EXTRACTORS['NumericField']
+        Extractors['NumericField']
 
       else
-        EXTRACTORS[@field_type]
+        Extractors[@field_type]
       end
     end
 
@@ -28,17 +21,6 @@ class RecordData
       @field_type == 'TextField' && @numeric
     end
 
-    EXTRACTORS =
-      {
-        'AddressField'        => Extractors::AddressField,
-        'ChoiceField'         => Extractors::ChoiceField,
-        'ClassificationField' => Extractors::ClassificationField,
-        'DateTimeField'       => Extractors::DateTimeField,
-        'PhotoField'          => Extractors::PhotoField,
-        'SignatureField'      => Extractors::SignatureField,
-        'TextField'           => Extractors::TextField,
-        'NumericField'        => Extractors::NumericField
-      }.freeze
   end
 end
 
