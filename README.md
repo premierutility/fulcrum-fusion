@@ -134,7 +134,7 @@ rackup
 
 #### Use
 
-Go into Fulcrum and add `localhost:9292` as the URL.
+Go into your local Fulcrum app and add `localhost:9292` as the URL.
 
 See it in Action
 -------------------
