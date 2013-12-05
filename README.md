@@ -140,14 +140,14 @@ URL.
 See it in Action
 -------------------
 
-This assumes everything is hooked up properly.
+This assumes everything is hooked up properly between Fulcrum and this app.
 
-- Create a form. Shortly, you'll see a Fusion Table in your [Google
-Drive](https://drive.google.com/#query?view=2&filter=tables) for this form.
+- Create a form in Fulcrum. Shortly, you'll see a Fusion Table in your [Google
+  Drive](https://drive.google.com/#query?view=2&filter=tables) for this form.
 - Create a record. Then you should see this as a record in that Fusion Table
-created above.
+  created above.
 - Do an import in Fulcrum. Shortly you'll see the form and all the data in the
-appropriate Fusion Table.
+  appropriate Fusion Table.
 
 Limitations
 -----------
