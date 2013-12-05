@@ -134,7 +134,8 @@ rackup
 
 #### Use
 
-Go into your local Fulcrum app and add `localhost:9292` as the URL.
+In your local Fulcrum server, create a webhook with `localhost:9292` as the
+URL.
 
 See it in Action
 -------------------
